@@ -1,0 +1,21 @@
+extends includes/layout 
+
+block variables 
+    - var activePage = 0
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel, activePage)
+
+block layout-content 
+    include includes/charts
+    +loadCharts()
+
+block footer
+    .footer #{settings[0].banner_text}
+
+
+
+
+    
+        

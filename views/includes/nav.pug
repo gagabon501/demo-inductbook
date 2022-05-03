@@ -1,0 +1,82 @@
+mixin navigation(level, activePage)
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+        .container-fluid
+            button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarTogglerDemo03' aria-controls='navbarTogglerDemo03' aria-expanded='false' aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            a(href="/home").navbar-brand#brand FCC B+I Booking System #{version}
+            .collapse.navbar-collapse#navbarTogglerDemo03
+                ul.navbar-nav.me-auto.mb-2.mb-lg-0
+                    li.nav-item
+                        a.nav-link(href="/home")  Dashboard
+                    li.nav-item
+                        a.nav-link(href="/db_inductions") Inductions
+                    li.nav-item
+                        a.nav-link(href='/db_trainings') Trainings
+                    li.nav-item
+                        a.nav-link(href='#') Other Bookings
+                    case level 
+                        when 4 
+                            li.nav-item.dropdown
+                                a.nav-link.dropdown-toggle#navbarDropdownMenuLink(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Utilities
+                                ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                                    li
+                                        a.dropdown-item(href='#') Manage Trainings
+                                    li
+                                        a.dropdown-item(href='#') Manage Other Bookings
+                                    li
+                                        a.dropdown-item(href='#') Manage Holidays
+                                    li
+                                        a.dropdown-item(href='#') Manage Users
+                                    li
+                                        a.dropdown-item(href='#') Manage App Settings
+                        when 5
+                            li.nav-item.dropdown
+                                a.nav-link.dropdown-toggle#navbarDropdownMenuLink(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Utilities
+                                ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                                    li
+                                        a.dropdown-item(href='#') Manage Trainings
+                                    li
+                                        a.dropdown-item(href='#') Manage Other Bookings
+                                    li
+                                        a.dropdown-item(href='#') Manage Holidays
+                                    li
+                                        a.dropdown-item(href='#') Manage Users
+                                    li
+                                        a.dropdown-item(href='#') Manage App Settings
+
+                            li.nav-item.dropdown
+                                a.nav-link.dropdown-toggle#navbarDropdownMenuLink(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Admin
+                                ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                                    li
+                                        a.dropdown-item(href='#') View Acces
+                                    li
+                                        a.dropdown-item(href='#') Download Logs
+                                    li
+                                        a.dropdown-item(href='#') Generate Billing
+
+                    li.nav-item.dropdown#profile
+                        a.nav-link.dropdown-toggle#navbarDropdownMenuLink(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Profile
+                        ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+                            li
+                                a.dropdown-item(href='#') Change Password
+                            li
+                                a.dropdown-item(href='#') Update Profile
+                            li
+                                a.dropdown-item(href='/logout') Logout
+
+
+                .d-flex
+                    div#right_menu
+                        p(style="color: white;margin: 5px;") Welcome #{username}
+                        .btn-group.dropstart 
+                            button(type="button" data-bs-toggle="dropdown" aria-expanded="false").btn.btn-primary.dropdown-toggle
+                                bi.bi-file-person-fill &nbspProfile
+                            ul(style="margin-top:40px").dropdown-menu
+                                li
+                                    a.dropdown-item(href='#') Change Password
+                                li
+                                    a.dropdown-item(href='#') Update Profile
+                            
+
+                        a(href="/logout" type="button")#logout
+                            i.fa-solid.fa-arrow-right-from-bracket

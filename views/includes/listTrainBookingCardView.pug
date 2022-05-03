@@ -1,0 +1,122 @@
+mixin listTrainBookingCardView(listObj,subHeading,level)
+    
+    .container-fluid
+        .menu-container-train
+            input(type="text" placeholder="Search" onkeyup=`filterTrainViewCard(${listObj.length})` aria-label="Search").form-control#search-input
+            div#genfile
+                div(role="status").spinner-border
+                    span Loading...
+
+            button(type="button" data-bs-toggle="modal" data-bs-target="#dateEntryModal").btn.btn-primary.btn-sm.mx-2
+                i.bi.bi-funnel-fill &nbspFilter
+                
+        .card-view-container
+            div(data-bs-backdrop="static" tabindex="-1" aria-labelledby="dateEntryModalLabel" aria-hidden="true").modal.fade#dateEntryModal
+                    .modal-dialog
+                        .modal-content
+                            .modal-header.alert-primary
+                                h5.modal-title#dateEntryModalLabel Filter Date
+                            .modal-body
+                                form(action="/print_trainings" method="get")
+                                    .form-group
+                                        label(for="start_date").col-form-label Start date:
+                                        input(type="date" name="start_date").form-control#start_date
+                                    .form-group
+                                        label(for="end_date").col-form-label End date:
+                                        input(type="date" name="end_date").form-control#end_date
+                                    button(type="button" data-bs-dismiss="modal").btn.btn-secondary.mt-3.mx-2
+                                        i.bi.bi-x-circle &nbspClose
+                                    button(type="submit" data-bs-dismiss="modal").btn.btn-primary.mt-3#button_update 
+                                        i.bi.bi-pencil-square &nbspUpdate
+            if listObj.length < 1
+                h5(role="alert" style="align-items: center; justify-contents: center; margin: auto; width: 100%;").alert.alert-danger.text-center No record to show
+            else
+
+                .card-view
+                    each record,i in listObj
+                        - const show = i < 10 ? 'block' : 'none'
+
+                        div(id=`card-${i}` style=`display:${show}`).card-list
+                            div(style="display: grid; grid-template-rows: 300px 50px")
+                                div#cardBody
+                                    .card-body-divider
+                                        div(style="margin-top:0; margin-left: 5px; line-height: .2")
+                                            h5(id=`h5-${i}`) #{record.firstname} #{record.lastname}
+                                            p Phone: #{record.phone}
+                                            p Company: #{record.company}
+                                            p Training Title: #{record.train_title}
+                                            p(style="font-weight: bold") Training Date: #{moment(record.date_attend,'DD-MM-YYYY').format("DD-MM-YYYY")}
+                                    .card-body-divider
+                                        div(style="margin-top:10px; margin-left: 5px; line-height: .2")
+                                            p 1st Language: #{record.lang1}
+                                            p 2nd Language: #{record.lang2}
+                                            p Available for: #{record.train_avail}
+                                            p Date Booked: #{moment(record.bookdate,'DD-MM-YYYY').format("DD-MM-YYYY")}
+                                    div(style="margin-top: 5px; line-height: .2; margin-right: 10px").card-divider
+                                        p(style="line-height: .95") Booked and Vaccine Confirmed by: #{record.bookedby}
+                                .card-button-group
+                                    if level > 1 && (moment(record.date_attend,'DD-MM-YYYY').format("YYYY-MM-DD") >= moment(Date.now()).format("YYYY-MM-DD"))
+                                        a(href=`/train_booking/edit/${record._id}` role="button").btn.btn-primary.mx-2.btn-sm
+                                            i.bi.bi-pencil-square &nbspEdit
+                                        a(href=`/train_booking/delete/${record._id}` role="button").btn.btn-danger.btn-sm
+                                            bi.bi-trash-fill &nbspDelete
+                                    else if level <= 1 && (moment(record.date_attend,'DD-MM-YYYY').format("YYYY-MM-DD") >= moment(Date.now()).format("YYYY-MM-DD"))
+                                        a(href=`/train_booking/delete/${record._id}` role="button").btn.btn-danger.btn-sm
+                                            bi.bi-trash-fill &nbspDelete
+
+                div(style="display: flex; margin: 5px auto;")
+                    nav(aria-label="Page")
+                        ul.pagination.bg-primary
+
+                            - const pages = Math.trunc(listObj.length/10) +1
+                            - let page = 1
+                            - const listLength = listObj.length
+
+                            li.page-item
+                                button(onclick= `prevPage(${pages}, ${listLength})` aria-label="Previous").page-link
+                                    span(aria-hidden="true") &laquo;
+
+                            while page <= pages
+                                li.page-item
+                                    button(onclick=`paginate(${page}, ${pages}, ${listLength})`).page-link #{page++}
+
+                            li.page-item
+                                button(onclick=`nextPage(${pages}, ${listLength})` aria-label="Next").page-link
+                                    span(aria-hidden="true") &raquo;
+
+    script(src="/javascripts/gagscripts.js")
+    script. 
+
+        function paginate(pageNum,pages,listLength) {
+          
+            localStorage.setItem("listLength", listLength)
+            localStorage.setItem("pages",pages)
+            localStorage.setItem("pageNum",pageNum)
+            localStorage.setItem("nextPage",pageNum < pages ? pageNum+1 : pages)
+            localStorage.setItem("prevPage",pageNum <= 1 ? 1 : pageNum - 1)
+            const startIndex = pageNum == 1 ? 0 : localStorage.getItem("prevPage") * 10
+            const lastIndex = pageNum*10 > listLength ? listLength - 1 : pageNum * 10 -1
+
+            for(j=0; j<listLength; j++) {
+                document.getElementById(`card-${j}`).style.display="none"
+            }
+
+            console.log("startIndex: ", startIndex)
+            console.log("lastIndex: ", lastIndex)
+
+            for(i = startIndex; i <= lastIndex; i++) {
+                document.getElementById(`card-${i}`).style.display="block"
+            }
+
+        }
+
+        function prevPage(pages,listLength) {
+            const prevPage = localStorage.getItem('prevPage')
+            paginate(prevPage,pages,listLength)
+        }
+
+        function nextPage(pages,listLength) {
+            const nextPage = localStorage.getItem('nextPage')
+            paginate(nextPage,pages,listLength)
+        }
+

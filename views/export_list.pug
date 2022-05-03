@@ -1,0 +1,12 @@
+extends includes/layout 
+
+block nav-bar
+    body(onload="JavaScript:startup();")    
+    include includes/nav
+    +navigation(userlevel, activePage)
+
+block layout-content 
+    include includes/listBookingCardView
+    +listBookingCardView(files,"Manage Induction Bookings",level)
+    
+

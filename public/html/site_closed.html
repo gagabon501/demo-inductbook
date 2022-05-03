@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FCC B+I EHS Induction Booking System - an online booking system">
+    <meta name="author" content="Gilberto Gabon">
+    <link rel="icon" href="images/favicon.ico">
+    <!-- Bootstrap core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="stylesheets/signin.css" rel="stylesheet">
+    <title>FCC B+I EHS Induction Booking System</title>
+    <style>
+    body {
+      background-image: url("/images/NZICC Auckland CBD.jpg");
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    #closed_booking {
+      background-color: red;
+      color: yellow;
+      text-align: center;
+    }
+
+    #slant {
+      background-repeat: repeat-x;
+    }
+
+    #triangle-topleft {
+      width: 0px;
+      height: 0px;
+      border-top: 70px solid yellow;
+      border-right: 70px solid transparent;
+    }
+
+    #triangle-bottomright {
+      width: 0;
+      height: 0;
+      border-bottom: 70px solid yellow;
+      border-left: 70px solid transparent;
+    }
+  
+  </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="jumbotron" id="closed_booking">
+        <h1 class="display-4">Online Booking Closed</h1>
+        <p class="lead"><%= errmsg %></p>
+      </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  </body>
+</html>

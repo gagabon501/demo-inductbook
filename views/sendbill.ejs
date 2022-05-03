@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include ./partials/header %>
+  <body>
+    <div class="container-fluid">
+      <div style="margin-left: 50px">
+        <p>Hi Arianna.</p>
+        <p>
+          Please find attached invoice (<%= emailbody.inv_no %>) for the web
+          application maintenance for the month of <%= emailbody.period %> under
+          PO No. 354224.
+        </p>
+        <p>Trust you find everything in order. Thanks.</p>
+      </div>
+      <div class="fw-bold" style="margin-top: 30px; margin-left: 50px">
+        GILBERTO GABON
+      </div>
+      <div style="margin-left: 50px">Director - Nodesafe Ltd</div>
+      <div style="margin-left: 50px">
+        Digital signature: <%= emailbody.id %>
+      </div>
+    </div>
+    <% include ./partials/footer %>
+  </body>
+</html>

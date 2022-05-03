@@ -1,0 +1,33 @@
+mixin generateBooking(bookings,title_session1)
+    .d-flex.justify-content-between.mt-2.mx-4
+        h3 Inductions
+        p#livebooking
+        a(href="/print" type="button").btn.btn-outline-primary List Inductions
+
+    .book-container
+        each booking, i in bookings
+            - let btnLabel = parseInt(booking.booking_num1) <= 0 ? "Fully Booked" : "Book Now"
+            - let isFull = parseInt(booking.booking_num1) <= 0 ? true : false
+            - let sessId = `isess1${i}`
+            - let btnId = `ibtn${i}`
+            .booking.card.shadow.rounded 
+                .card-body 
+                    h6.card-title-1.text-center.p-2 #{moment(booking.booking_date).format('ddd DD-MM-YYYY')}
+                    .card-text.text-center.text-black.p-3 #{title_session1[i]} = 
+                        span(id=`${sessId}`) #{booking.booking_num1}
+                .card-footer.text-center.p-0 
+                    form(action="/sked/create" method="get")
+                        input(type="hidden" name="data_date" value=`${booking.booking_date}`)#data_date1
+                        input(type="hidden" name="data_sked" value=`${1}`)#data_sked1
+                        input(type="hidden" name="data_tit1" value=`${title_session1[i]}`)#data_tit1
+                        .d-grid.gap-2 
+                            if isFull
+                                button(type="submit" disabled).btn#btnId 
+                                    i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+                            else 
+                                button(type="submit"  enabled).btn#btnId 
+                                    i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+    script(src="/javascripts/gagscripts.js")
+    script. 
+        var interval = 1000; 
+        setInterval(loadSked, interval);

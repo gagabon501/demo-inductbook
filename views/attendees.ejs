@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include ./partials/header %>
+  <body>
+    <div class="container-fluid">
+      <main class="col-md-12 ms-sm-auto col-lg-10 px-md-4">
+        <div
+          class="
+            d-flex
+            justify-content-between
+            flex-wrap flex-md-nowrap
+            align-items-center
+            pt-3
+            pb-2
+            mb-3
+            border-bottom
+          "
+        >
+          <h1 class="h2">Induction Details</h1>
+        </div>
+
+        <table class="table table-borderless table-dark">
+          <tbody>
+            <tr>
+              <th scope="row"></th>
+              <td>Booking ID</td>
+              <td><%= emailbody.booking_num %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Name</td>
+              <td><%= emailbody.name %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Phone</td>
+              <td><%= emailbody.phone %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Company</td>
+              <td><%= emailbody.company %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Where to go</td>
+              <td><%= emailbody.where %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Site Safe No./Constructsafe</td>
+              <td><%= emailbody.sitesafe %>/<%= emailbody.constructsafe %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Booking</td>
+              <td><%= emailbody.booking %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Emergency Contact Person</td>
+              <td><%= emailbody.e_person %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Emergency Contact Number</td>
+              <td><%= emailbody.e_number %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Work authorised by</td>
+              <td><%= emailbody.fcc_supervisor %></td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td>Workpack Number</td>
+              <td><%= emailbody.workpack %></td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>REMINDERS</h3>
+        <ul>
+          <li>No parking available on site or the main site office</li>
+          <li>
+            Ensure you arrive by 07:30am to check in and get your photo taken
+            (any persons arriving after 07:45am will be turned away)
+          </li>
+          <li>
+            Ensure you bring evidence of your current Site Safe or Constructsafe
+            details with on the day of the induction
+          </li>
+          <li>
+            Bring PPE supplied by your company (Long sleeves, long trousers,
+            Hard hat, Safety Shoes, Safety Glasses, and any other task specific
+            PPE)
+          </li>
+          <li>
+            If English is not your first language and you need a translator
+            please arrange it in advance
+          </li>
+          <li>
+            Please ensure to be fit for work, if you feel unwell or have been
+            overseas in the last 14 days please stay home
+          </li>
+        </ul>
+      </main>
+    </div>
+    <% include ./partials/footer %>
+  </body>
+</html>

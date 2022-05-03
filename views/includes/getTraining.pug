@@ -1,0 +1,110 @@
+mixin bookTraining(files)
+    - console.log(files)
+    .d-flex.justify-content-between.mt-2.mx-4
+        h3 Trainings
+        a(href="/print_trainings" type="button").btn.btn-outline-primary List Trainngs
+
+    .book-container
+        each booking, i in files
+            - let btnLabel = booking.train_pax - booking.train_tot_session1 <= 0 ? "Fully Booked" : "Book Now"
+            - let isFull = booking.train_pax - booking.train_tot_session1 <= 0 ? true : false
+            - let isDummy1 = booking.train_title === 'dummy' ? true : false
+            - let classHide1 = isDummy1 ? 'hide-item' : ''
+            - let sessId = `sess1${i}`
+            - let sessId2 = `sess2${i}`
+            - let btnId = `btn${i}`
+            div(class=`${classHide1}`)
+                .booking.card.shadow.rounded 
+                    .card-body 
+                        h6.card-title-1.text-center.p-2#toptit #{booking.train_title.slice(0,26)}
+                        h6.card-title.text-center #{moment(booking.train_date).format('DD-MMM-YYYY')}
+                        p.card-text.text-center.text-black #{booking.train_session1}  = 
+                            span(id=`${sessId}`) #{booking.train_pax - booking.train_tot_session1} available
+                        if (booking.train_session2.length  >  0) 
+                            p.card-text.text-center.text-black #{booking.train_session2}  = 
+                                span(id=`${sessId2}`) #{booking.train_pax - booking.train_tot_session2}
+                        else
+                            p.card-text.text-center.text-black No 2nd session
+
+                        p.card-text.text-center.text-black Venue: #{booking.train_venue}
+                        p.card-text.text-center.text-black Available for: #{booking.train_avail}
+                            
+                    .card-footer.text-center.p-0 
+                        form(action="/train/create" method="get")
+                            input(type="hidden" name="data_train_date" value=`${moment(booking.train_date).format('DD-MMM-YYYY')}`)#data_train_date
+                            input(type="hidden" name="data_train_id" value=`${booking._id}`)#data_train_id
+                            input(type="hidden" name="data_train_pax" value=`${booking.train_pax}`)#data_train_pax 
+                            input(type="hidden" name="data_train_title" value=`${booking.train_title}`)#data_train_title
+                            input(type="hidden" name="data_train_session1" value=`${booking.train_session1}`)#data_train_session1 
+                            input(type="hidden" name="data_train_session2" value=`${booking.train_session2}`)#data_train_session2 
+                            input(type="hidden" name="data_train_venue" value=`${booking.train_venue}`)#data_train_venue
+                            input(type="hidden" name="data_train_avail" value=`${booking.train_avail}`)#data_train_avail
+
+                            .d-grid.gap-2 
+                                if isFull
+                                    button(type="submit" id=`${btnId}` disabled).btn
+                                        i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+                                else 
+                                    button(type="submit" id=`${btnId}` enabled).btn
+                                        i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+    script(src="/javascripts/gagscripts.js")
+    script. 
+        var interval = 10000;  // 1000 = 1 second
+        setInterval(loadTrainSked, interval);
+        function loadTrainSked() {
+          // Create XHR Object
+          var xhr = new XMLHttpRequest();
+          // OPEN - type, url/file, async
+          xhr.open('GET', '/getskedupdate', true); 
+
+          console.log('READYSTATE: ', xhr.readyState);
+
+          // OPTIONAL - used for loaders
+          xhr.onprogress = function () {
+            console.log('READYSTATE: ', xhr.readyState);
+          }
+
+          xhr.onload = function () {
+            console.log('READYSTATE: ', xhr.readyState);
+            if (this.status == 200) {
+
+              var sked = JSON.parse(this.responseText);
+
+              //console.log(sked);
+
+              //TRAININGS TAB
+              let j = 0;
+              let btnText = ""
+              const train_data = Object.values(sked.files)
+
+
+              console.log(train_data)
+              let isFull1 = false
+              for (const train of train_data) {
+                isFull1 = (train.train_pax - train.train_tot_session1 < 1)
+                document.getElementById("btn" + j).disabled = isFull1
+                btnText = isFull1 ? "Fully Booked" : "Book Now"
+                //- icon = document.createElement("i");
+                //- icon.className = "bi.bi-calendar-check-fill.text-black";
+                //- icon.id = "icon_" + j;
+                //- document.getElementById("btn" + j).appendChild(icon);
+                //- document.getElementById("icon_"+j).appendChild(btnText)
+                document.getElementById("sess1" + j).innerHTML = (train.train_pax - train.train_tot_session1) + ' available'
+                if (document.getElementById("sess2" + j)) {
+                  document.getElementById("sess2" + j).innerHTML = train.train_pax - train.train_tot_session2 + ' available'
+                }
+                j++;
+
+              }
+
+            } else if (this.status = 404) {
+              document.getElementById('text').innerHTML = 'Not Found';
+            }
+          }
+
+          xhr.onerror = function () {
+            console.log('Request Error...');
+          }
+          // Sends request
+          xhr.send();
+        }

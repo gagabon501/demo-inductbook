@@ -1,0 +1,18 @@
+
+extends includes/layout 
+
+block variables 
+    - var activePage = 1
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel, activePage)
+
+block layout-content 
+    include includes/getBooking
+    +generateBooking(avail_date,title_session1)
+        
+
+block footer
+    .footer #{settings[0].banner_text}
+

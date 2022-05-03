@@ -1,0 +1,13 @@
+/node_modules
+npm-debug.log
+.DS_Store
+/*.env*
+mlab.txt
+*.xlsx
+/*.xlsx
+.env
+/Old_Files
+/server
+/uploads_img
+/mlab_backup
+/dump

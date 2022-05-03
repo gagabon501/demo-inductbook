@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom bg-dark">
+  <a class="navbar-brand" href="/home"
+    ><i class="fas fa-home"></i>&nbsp FCC NZICC/HSH Induction and Training
+    Booking System</a
+  >
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#myNavbarCollapse"
+    aria-controls="navbarsExample01"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="myNavbarCollapse">
+    <% if(user_level > 1) { %>
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle text-white"
+          data-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          >Utilities</a
+        >
+        <div class="dropdown-menu bg-dark">
+          <a class="dropdown-item" href="/training">Update Trainings</a>
+          <a class="dropdown-item" href="/gensked">Update Other Bookings</a>
+          <a class="dropdown-item" href="/holiday">Update Holidays</a>
+          <a class="dropdown-item" href="/user_list">Manage Users</a>
+          <a class="dropdown-item" href="/delrecs">Clean-up Records</a>
+        </div>
+      </li>
+    </ul>
+    <% } %>
+
+    <ul class="nav navbar-nav float-md-right">
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle text-white"
+          data-toggle="dropdown"
+          href="#"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          ><i class="fas fa-user"></i>&nbspProfile</a
+        >
+        <div class="dropdown-menu bg-dark">
+          <a class="dropdown-item" href="/profile">Update Profile</a>
+          <a class="dropdown-item" href="/passwd">Change Password</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/logout"
+          ><i class="fas fa-sign-out-alt"></i>&nbspLogout</a
+        >
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<span>
+  <p class="text-center">
+    Welcome <%= username %> / Today is: <%= datenow %> / <%= company_type %> /
+    <%= runstage%>
+  </p>
+</span>

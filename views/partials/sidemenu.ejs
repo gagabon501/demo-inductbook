@@ -1,0 +1,191 @@
+<style>
+
+  @media screen and (min-width: 768px) {
+    #logout {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    #signout {
+      display: none;
+    }
+
+    #utilities {
+      display: none;
+    }
+    
+    #util_heading {
+      display: none;
+    }
+
+
+    #logout {
+      display: block;
+    }
+
+
+  }
+</style>
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/home"
+    >FCC B+I Booking System v<%= version %> </a
+  >
+  <button
+    class="navbar-toggler position-absolute d-md-none collapsed"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#sidebarMenu"
+    aria-controls="sidebarMenu"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <ul class="navbar-nav px-3">
+    <li>
+      <h4 class="nav-link" id="username">Welcome <%= username %></h4>
+      <input id="uname" type="hidden" name="email" value=<%= email %> >
+    </li>
+  </ul>
+
+  <ul class="navbar-nav px-3">
+    <li id="signout">
+      <button
+        class="nav-link btn btn-outline-primary"
+        onclick="document.location='/logout'"
+        id="signout1"
+      >
+        Sign out
+      </button>
+    </li>
+  </ul>
+</header>
+
+<nav
+  id="sidebarMenu"
+  class="col-md-3 col-lg-1 d-md-block bg-light sidebar collapse"
+>
+  <div class="position-sticky pt-3">
+    <ul class="nav flex-column">
+      <li class="nav-item shadow rounded" id="db">
+        <a class="nav-link" href="/home">
+          <span data-feather="home"></span>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item shadow rounded">
+        <a class="nav-link" href="/db_inductions">
+          <span data-feather="calendar"></span>
+          Inductions
+        </a>
+      </li>
+      <li class="nav-item shadow rounded">
+        <a class="nav-link" href="/db_trainings">
+          <span data-feather="book-open"></span>
+          Trainings
+        </a>
+      </li>
+      <li class="nav-item shadow rounded">
+        <a class="nav-link" href="/db_genskeds">
+          <span data-feather="users"></span>
+          Other Bookings
+        </a>
+      </li>
+      <li class="nav-item shadow rounded">
+        <a class="nav-link" href="/passwd">
+          <span data-feather="key"></span>
+          Change Password
+        </a>
+      </li>
+      <li id="logout" class="nav-item shadow rounded">
+        <a class="nav-link" href="/logout">
+          <span data-feather="database"></span>
+          Logout
+        </a>
+      </li>
+      <% if (userlevel >2) { %>
+        <li class="nav-item shadow rounded">
+          
+          <div class="btn-group dropend">
+            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Utilities
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" href="/training">
+                  <span data-feather="database"></span>
+                  Manage Trainings
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/gensked">
+                  <span data-feather="database"></span>
+                  Manage Other Bookings
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/holiday">
+                  <span data-feather="database"></span>
+                  Manage Holidays
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/user_list">
+                  <span data-feather="database"></span>
+                  Manage Users
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/settings">
+                  <span data-feather="settings"></span>
+                  Settings
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+      <% } %> 
+       <% if (userlevel > 4) { %>
+        <li class="nav-item shadow rounded ">
+          <div class="btn-group dropend">
+            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Admin
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" href="/getlogs/show">
+                  <span data-feather="settings"></span>
+                  View Access Logs
+                </a>
+              </li>
+
+              <li>
+                <a class="nav-link" href="/getlogs/server">
+                  <span data-feather="settings"></span>
+                  Download Logs
+                </a>
+              </li>
+              <li>
+                <a class="nav-link" href="/dobill">
+                  <span data-feather="settings"></span>
+                  Generate Billing
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      <% } %>      
+
+    </ul>
+
+  </div>
+</nav>
+
+<script>
+  function gagclick() {
+    console.log("gag clicked")
+  }
+</script>

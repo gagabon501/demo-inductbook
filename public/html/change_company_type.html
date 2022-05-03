@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <title>EHS Induction Online Booking System</title>
+
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/grid.css" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.ico">
+
+    <style>
+      img {
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 5px;
+        width: 150px;
+      }
+      body
+      {
+        counter-reset: Serial;           /* Set the Serial counter to 0 */
+      }
+
+      table
+      {
+        border-collapse: separate;
+      }
+
+      tr td:first-child:before
+      {
+        counter-increment: Serial;      /* Increment the Serial counter */
+        content: counter(Serial); /* Display the counter */
+      }
+    </style>
+
+  </head>
+
+  <body onload="doCompanyUpdate()">
+
+    <div class="container-fluid">
+        
+      <div class="alert alert-primary text-center" role="alert">
+        <h4>Manage Users</h4>
+      </div>
+
+
+      <div class="bs-example">
+        <!-- Progress bar HTML -->
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped" style="min-width: 20px;"></div>
+        </div>
+      </div>           
+      <a href="/home" class="btn btn-outline-secondary btn-md mx-2" role="button" aria-pressed="true"><i
+          class="far fa-arrow-alt-circle-left"></i>&nbspBack</a>
+    </div> <!-- /container -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+      integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- jQuery Script -->
+    <script>
+      function doCompanyUpdate() {
+        makeProgress();
+
+        var xhr = new XMLHttpRequest();
+        // OPEN - type, url/file, async
+        xhr.open('GET', '/bulk_update_company', true);
+
+        console.log('READYSTATE: ', xhr.readyState);
+
+        // OPTIONAL - used for loaders
+        xhr.onprogress = function () {
+          console.log('READYSTATE: ', xhr.readyState);
+        }
+
+        xhr.onload = function () {
+          console.log('READYSTATE: ', xhr.readyState);
+          if (this.status == 200) {
+            //console.log(this.responseText);
+            //document.getElementById('text').innerHTML = this.responseText;
+            var sked = JSON.parse(this.responseText);
+
+
+
+            xhr.onerror = function () {
+              console.log('Request Error...');
+            }
+
+            // xhr.onreadystatechange = function(){
+            //   console.log('READYSTATE: ', xhr.readyState);
+            //   if(this.readyState == 4 && this.status == 200){
+            //     //console.log(this.responseText);
+            //   }
+            // }
+            }
+            // Sends request
+            xhr.send();
+            }
+      }
+
+
+      var i = 0;
+      function makeProgress() {
+        if (i < 100) {
+          i = i + 1;
+          $(".progress-bar").css("width", i + "%").text(i + " %");
+        }
+        // Wait for sometime before running this script again
+        setTimeout("makeProgress()", 100);
+      }
+      
+
+    </script>
+
+	</body>
+</html>

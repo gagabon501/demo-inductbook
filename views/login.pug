@@ -1,0 +1,34 @@
+extends includes/layout 
+
+block layout-content 
+
+    .login
+        .login_box 
+            form(action="/login" method="post")
+                .card.left_login 
+                    .card-body
+                        h1#login Login
+                        .input-group 
+                            span.input-group-text#basic_addon1 @
+                            input(type="email" placeholder="Email address as username" aria-label="username" name="logemail" aria-describedby="basic-addon1").form-control
+                        .input-group.mt-3
+                            span.input-group-text#basic_addon2
+                                i.fa-solid.fa-lock
+                            input(type="password" aria-label="password" name="logpassword" aria-describedby="basic-addon2").form-control
+                        .input-group.mt-3
+                            button(type="submit").btn.btn-primary#login_button Login
+
+                
+            .vert_line OR
+            .container.right_login
+                .d-grid.gap-2
+                    a(type="button" href="/register").btn.btn-warning Register
+
+               
+            
+                    
+
+
+
+        
+        

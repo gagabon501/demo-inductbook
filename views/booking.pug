@@ -1,0 +1,142 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+    body(onload="JavaScript:showBookForm('none');")
+    .container-fluid
+        div(data-bs-backdrop="static" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true").modal.fade#confirmModal
+            .modal-dialog
+                .modal-content
+                    .modal-header.alert-primary
+                        h5.modal-title.text-center.col-12 Confirm
+                    .modal-body
+                        h6.text-center Do you confirm that the person you are booking is fully vaccinated?
+                    .modal-footer
+                        button(type="button" data-bs-dismiss="modal").btn.btn-primary Yes
+                        button(type="button" data-bs-dismiss="modal" onclick="doCancel()").btn.btn-danger No
+
+        main.col-md-12.ms-sm-auto.col-lg-12
+            .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+                h6.text-danger#expiring New booking expiring in: 120 seconds
+                h5 FCC EHS Induction Booking System
+                h6 Date: #{datenow[0]} / Session: #{datenow[3]}
+
+            form(method='POST' action='/sked/create' enctype="multipart/form-data")
+
+                input(type="hidden" name="board_msg" value=`${settings[0].board_msg}`)#board_msg
+                input(id="data_date" type="hidden" name="data_date" value=`${datenow[0]}`)
+                input(id="data_sked" type="hidden" name="data_sked" value=`${datenow[1]}`)
+                input(id="data_tit" type="hidden" name="data_tit" value=`${datenow[3]}`)
+                input(id="obj_id" type="hidden" name="obj_id" value=`${obj_id}`)
+
+                .mt-0#agree
+                    .row
+                        .col-md-9#editor
+                        .col-md-3
+                            img(src="/images/fccmap.png" alt="fcc map")#gg_mymap
+                    p You and your company accept Fletchers Induction Requirement/Conditions
+
+                    button(onclick="showBookForm('block')" data-bs-toggle="modal" data-bs-target="#confirmModal").col-md-12.btn.btn-primary Yes
+            
+
+                .form-group.required#bookform
+
+                    .alert.alert-danger.fade.show.text-center#filetype Invalid file type. Upload only image files (jpg, jpeg, png, bmp, tiff). Ensure both SiteSafe and Headshot contain only image files
+
+                    .row
+                        .col-md-6.mb-3
+                            label(for="company_supervisor").control-label Company responsible supervisor
+                            input(type="text" name="company_supervisor" placeholder="Company responsible supervisor" required minlength="3" pattern="^(?!\s*$).+").form-control#company_supervisor
+                        .col-md-6.mb-3
+                            label(for="first_tier").control-label 1st Tier Subcontractor company engaging you/your company
+                            input(type="text" name="first_tier"  placeholder="1st Tier Subcontractor company engaging you/your company" required minlength="3" pattern="^(?!\s*$).+").form-control#first_tier
+
+                    .row
+                        .col-md-6.mb-3
+                            label(for="fcc").control-label  FCC Supervisor Name
+                            input(type="text" name="fcc_supervisor" placeholder="FCC Supervisor who approved the work" required minlength="3" pattern="^(?!\s*$).+").form-control#fcc
+                        .col-md-6.mb-3
+                            label(for="workpack").control-label  Workpack Number
+                            .input-group.mb-3
+                                label(for="inputGroupSelect01").input-group-text Workpack
+                                select(name="workpack").form-select#inputGroupSelect01
+                                    option(selected) Choose...
+                                    option(value="WP1 (B1-4 & L1-2)") WP1 (B1-4 & L1-2)
+                                    option(value="WP2 (Spine & Laneway (L1-L6 & Roof)") WP2 (Spine & Laneway (L1-L6 & Roof)
+                                    option(value="WP3 (L3, L4, L4M)") WP3 (L3, L4, L4M)
+                                    option(value="WP4 (L5, L6 & Roof)") WP4 (L5, L6 & Roof
+                                    option(value="WP5 (Horizon Hotel)") WP5 (Horizon Hotel)
+
+                    .row
+                        .col-md-6.mb-3
+                            label(for="firstName").control-label First name
+                            input(type="text" name="firstname" placeholder="firstname" required minlength="3" pattern="^(?!\s*$).+").form-control#firstname
+                    
+                        .col-md-6.mb-3
+                            label(for="lastName").control-label  Last name
+                            input(type="text" name="lastname"  placeholder="lastname" required minlength="3" pattern="^(?!\s*$).+").form-control#lastname
+
+                    .row
+                        .col-md-6.mb-3
+                            label(for="phone").control-label  Phone
+                            input(type="text" name="phone" placeholder="phone" required minlength="3" pattern="^(?!\s*$).+").form-control#phone
+
+                        .col-md-6.mb-3
+                            label(for="company").control-label  Company
+                            input(type="text" name="company" placeholder="company" required minlength="3" pattern="^(?!\s*$).+").form-control#company
+
+                    .row
+                        .col-md-4.mb-3
+                            label(for="sitesafe").control-label  Site Safe Number/Training Booking Number
+                            input(type="text" name="sitesafe" placeholder="Site Safe card number" required minlength="3" pattern="^(?!\s*$).+").form-control#sitesafe
+
+                        .col-md-4.mb-3
+                            label(for="expiry").control-label SS Expiry / SS Booking Date
+                            input(type="date" name="expiry" placeholder="" value=`${moment().format('YYYY-MM-DD')}` required).form-control#expiry
+
+                        .col-md-4.mb-3
+                            label(for="constructsafe").control-label Constructsafe No.
+                            input(type="text" name="constructsafe" placeholder="Constructsafe number (optional)").form-control#constructsafe
+
+
+                    .row
+                        .col-md-5.mb-3
+                            label(for="ss_photo").control-label Site Safe Photo/Training Booking Screenshot
+                            input(type="file" accept="image/*" name="ss_photo" required onchange="ssFname()").form-control#ss_photo
+
+                        .col-md-1.mb-3
+                            .imagePreview#ss_photo1
+
+                        .col-md-5.mb-3
+                            label(for="headshot").control-label  Headshot
+                            input(type="file" accept="image/*" name="headshot" required onchange="hsFname()").form-control#headshot
+                        .col-md-1.mb-3
+                            .imagePreview#headshot1
+                    .row
+                        .col-md-6.mb-3
+                            label(for="emergency_person").control-label Emergency contact person
+                            input(type="text" name="emergency_person" placeholder="emergency contact person" pattern="^(?!\s*$).+").form-control#emergency_person
+
+                        .col-md-6.mb-3
+                            label(for="emergency_phone").control-label Emergency contact number
+                            input(type="text" name="emergency_phone" placeholder="emergency contact number" required minlength="3" pattern="^(?!\s*$).+").form-control#emergency_phone
+
+                    p.text-danger.fst-italic * = mandatory fields
+                    p.text-danger You must provide a Site Safe (or approved alternative) at the reception before your induction. If you hold an expired Site Safe Card you must provide evidence of a booking with site safe for a refresher course that will occur within 30 days of the induction you are booked on. Note: If you have no previous Site Safe training or training in risk management from an approved provider, you will not be permitted entry to the induction and you will have NO ACCESS to Site.
+                    button(type="submit").btn.btn-primary.btn-sm.mx-2#btn_submit Submit
+                    a(href=`/sked/delete/${obj_id}`).btn.btn-danger.btn-sm#cancel Cancel
+    
+    script(src="//cdn.quilljs.com/1.3.6/quill.js")
+    script(src="//cdn.quilljs.com/1.3.6/quill.min.js")
+    script. 
+        const quill = new Quill("#editor", {});
+        const msgBoard = document.getElementById("board_msg").value;
+        quill.setContents(JSON.parse(msgBoard));
+        quill.enable(false);
+        
+        countDown(1800); 
+
+

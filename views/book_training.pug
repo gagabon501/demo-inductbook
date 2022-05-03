@@ -1,0 +1,53 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+    .container-fluid
+        main.col-md-12.ms-sm-auto.col-lg-12.px-md-4
+            .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+                h1 New Training Booking
+                h5 #{train_data[3]}
+                h5 Date: #{train_data[0]}/ Session: #{train_data[5]}
+
+            form(method='POST' action='/train/create')
+                .row
+                    .col-md-4.mb-3
+                        label(for="firstName").control-label First name
+                        input(type="text"  name="firstname" placeholder="firstname" required minlength="3" pattern="^(?!\s*$).+").form-control#firstname
+                    .col-md-4.mb-3
+                        label(for="lastName").control-label Last name
+                        input(type="text" name="lastname"  placeholder="lastname" required minlength="3" pattern="^(?!\s*$).+").form-control#lastname
+                    .col-md-4.mb-3
+                        label(for="phone").control-label Phone
+                        input(type="text"  name="phone" placeholder="phone" required minlength="3" pattern="^(?!\s*$).+").form-control#phone
+
+                .row
+                    .col-md-6.mb-3
+                        label(for="position").control-label Position
+                        input(type="text"  name="position"  placeholder="position" required minlength="3" pattern="^(?!\s*$).+").form-control#position
+
+                    .col-md-6.mb-3
+                        label(for="company").control-label Company
+                        input(type="text"  name="company" placeholder="company" required minlength="3" pattern="^(?!\s*$).+").form-control#company
+
+                .row
+                    .col-md-6.mb-3
+                        label(for="lang1").control-label 1st Language
+                        input(type="text" name="lang1"  placeholder="first language" required minlength="3" pattern="^(?!\s*$).+").form-control#lang1
+
+                    .col-md-6.mb-3
+                        label(for="lang2").control-label 2nd Language
+                        input(type="text" name="lang2" placeholder="second language" required minlength="3" pattern="^(?!\s*$).+").form-control#lang2
+
+                input(type="hidden" name="data_date" value=`${train_data[0]}`)#data_date  
+                input(type="hidden" name="data_sked" value=`${train_data[1]}`)#data_sked
+                input(type="hidden" name="data_tit" value=`${skedtit}`)#data_tit
+                input(type="hidden" name="obj_id" value=`${obj_id}`)#obj_id
+                input(type="hidden" name="data_venue" value=`${train_data[4]}`)#data_venue
+                input(type="hidden" name="data_session_title" value=`${train_data[5]}`)#data_session_title
+
+                button(type="submit").btn.btn-primary.btn-sm.mt-3 Submit
+                a(href=`/train/delete/${obj_id}`).btn.btn-danger.btn-sm.mt-3.mx-2 Cancel

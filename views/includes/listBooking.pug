@@ -1,0 +1,109 @@
+mixin listBooking(listObj,theadArray,subHeading,level)
+    .container-fluid
+        main.col-md-12.ms-sm-auto.col-lg-12
+            .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+                h1#date_error #{subHeading}
+            div(data-bs-backdrop="static" tabindex="-1" aria-labelledby="dateEntryModalLabel" aria-hidden="true").modal.fade#dateEntryModal
+                .modal-dialog
+                    .modal-content
+                        .modal-header.alert-primary
+                            h5.modal-title#dateEntryModalLabel Filter Date
+                        .modal-body
+                            form(action="/print" method="get")
+                                .form-group
+                                    label(for="start_date").col-form-label Start date:
+                                    input(type="date" name="start_date").form-control#start_date
+                                .form-group
+                                    label(for="end_date").col-form-label End date:
+                                    input(type="date" name="end_date").form-control#end_date
+                                button(type="button" data-bs-dismiss="modal").btn.btn-secondary.mt-3.mx-2
+                                    i.fa-solid.fa-circle-xmark &nbspClose
+                                button(type="submit" data-bs-dismiss="modal").btn.btn-primary.mt-3#button_update 
+                                    i.fa-solid.fa-square-pen &nbspUpdate
+            
+            .row
+                .col-md-4
+                    input(type="text" name="search" onkeyup="filterTable()" placeholder="Search by firstname..." ).form-control#search
+                .col-md-6
+                    if level > 1
+                        button(type="button" data-bs-toggle="modal" data-bs-target="#dateEntryModal").btn.btn-outline-primary.mx-2
+                            i.fa-solid.fa-filter &nbspFilter
+                        a(href="/print" role="button" onclick="changeText('ALL RECORDS')").btn.btn-outline-primary.mx-2
+                            i.fa.fa-search-plus &nbspShow All
+                        button(role="button" aria-pressed="true" onclick="genClick()").btn.btn-outline-primary.mx-2
+                            i.fas.fa-file-excel &nbspDownload
+                        button(role="button" aria-pressed="true" onclick="getInductionClick()").btn.btn-outline-primary.mx-2
+                            i.far.fa-envelope &nbspEmail
+                    a(href="/home"  role="button" aria-pressed="true").btn.btn-outline-primary.mx-2 
+                        i.fas.fa-home
+            .container-fluid
+                .row
+                    .col-md-8
+                        div#filter_date
+                            if showall
+                                h6.text-danger ALL RECORDS 
+                            else
+                                -const displayText = `Filter date: ${moment(dfrom).format("DD-MM-YYYY")} to ${moment(dto).format("DD-MM-YYYY")}`
+                                h6.text-danger #{displayText}
+
+            div#genfile
+                .d-flex.justify-content-center
+                    div(role="status").spinner-border
+                        span Loading...
+                
+            table.table
+                thead(style="background-color: black;color: white;").thead-dark.sticky-top
+                    tr
+                        th(scope="col").text-center #
+                        each theadTitle, index in theadArray
+                            th(scope="col").text-center #{theadTitle}
+                        th(colspan="2" scope="col").text-center Action
+                tbody
+                    each record in listObj
+                        tr
+                            td.text-center 
+                                
+                            td.text-center
+                                a(href=`${record.headUrl}` target="_blank")
+                                    img(src=`${record.headUrl}` alt="headshot photo").photo_img
+                            td.text-center #{record.firstname}
+                            td.text-center #{record.lastname}
+                            td.text-center #{record.phone}
+                            td.text-center #{record.company}
+                            td.text-center #{record.sitesafe}
+                            td.text-center #{moment(record.expiry).format("DD-MM-YYYY")}
+                            td.text-center #{record.constructsafe}
+                            td.text-center
+                                a(href=`${record.ssUrl}` target="_blank")
+                                    img(src=`${record.ssUrl}` alt="sitesafe photo").ss_img 
+                            td.text-center #{moment(record.date_attend).format("DD-MM-YYYY")}
+                            td.text-center #{record.session_title}
+                            td.text-center #{moment(record.bookdate).format("DD-MM-YYYY")}
+                            td.text-center #{record.bookedby}
+                            td.text-center #{record.emergency_person}
+                            td.text-center #{record.emergency_phone}
+                            td.text-center #{record.fcc_supervisor}
+                            td.text-center #{record.workpack}
+                            td.text-center 
+                                if level > 1
+                                    a(href=`/booking/${record._id}`)
+                                        i.far.fa-edit
+                                    a(href=`/booking/delete/${record._id}`)
+                                        i.fas.fa-trash-alt.text-danger.mx-2
+    script(src="/javascripts/gagscripts.js")
+    script(type="text/javascript").
+        $('#dateEntryModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever')
+            var modal = $(this)
+            var dFrom = $("#start_date").val()
+            var dTo = $("#end_date").val()
+            modal.find('.modal-body input').val(recipient)
+            
+            // this is the script that runs when the UPDATE button in the MODAL screen is clicked
+            $("#button_update").click(function () {
+                alert("Hey Jude!")
+                $(getList($("#start_date").val(), $("#end_date").val())) 
+            });
+        })
+    
