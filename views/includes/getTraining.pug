@@ -2,7 +2,13 @@ mixin bookTraining(files)
     - console.log(files)
     .d-flex.justify-content-between.mt-2.mx-4
         h3 Trainings
-        a(href="/print_trainings" type="button").btn.btn-outline-primary List Trainngs
+        //- a(href="/print_trainings" type="button").btn.btn-outline-primary List Trainngs
+        //- a(href="/trainings" type="button").btn.btn-outline-success Manage Trainngs
+        div(role="group" aria-label="Options" style="display: flex").btn-group
+          a(href="/print_trainings" role="button").btn.btn-primary.btn-sm
+              i.bi.bi-list-stars &nbspList Trainings
+          a(href="/training" role="button").btn.btn-primary.btn-sm 
+              i.bi.bi-kanban &nbspManage Trainings
 
     .book-container
         each booking, i in files
@@ -13,6 +19,7 @@ mixin bookTraining(files)
             - let sessId = `sess1${i}`
             - let sessId2 = `sess2${i}`
             - let btnId = `btn${i}`
+            - let iConId = `icon-${i}`
             div(class=`${classHide1}`)
                 .booking.card.shadow.rounded 
                     .card-body 
@@ -43,68 +50,18 @@ mixin bookTraining(files)
                             .d-grid.gap-2 
                                 if isFull
                                     button(type="submit" id=`${btnId}` disabled).btn
-                                        i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+                                        i(id=`${iConId}`).bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
                                 else 
                                     button(type="submit" id=`${btnId}` enabled).btn
-                                        i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+                                        i(id=`${iConId}`).bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
     script(src="/javascripts/gagscripts.js")
     script. 
-        var interval = 10000;  // 1000 = 1 second
+        const interval = 10000;  
         setInterval(loadTrainSked, interval);
-        function loadTrainSked() {
-          // Create XHR Object
-          var xhr = new XMLHttpRequest();
-          // OPEN - type, url/file, async
-          xhr.open('GET', '/getskedupdate', true); 
-
-          console.log('READYSTATE: ', xhr.readyState);
-
-          // OPTIONAL - used for loaders
-          xhr.onprogress = function () {
-            console.log('READYSTATE: ', xhr.readyState);
-          }
-
-          xhr.onload = function () {
-            console.log('READYSTATE: ', xhr.readyState);
-            if (this.status == 200) {
-
-              var sked = JSON.parse(this.responseText);
-
-              //console.log(sked);
-
-              //TRAININGS TAB
-              let j = 0;
-              let btnText = ""
-              const train_data = Object.values(sked.files)
 
 
-              console.log(train_data)
-              let isFull1 = false
-              for (const train of train_data) {
-                isFull1 = (train.train_pax - train.train_tot_session1 < 1)
-                document.getElementById("btn" + j).disabled = isFull1
-                btnText = isFull1 ? "Fully Booked" : "Book Now"
-                //- icon = document.createElement("i");
-                //- icon.className = "bi.bi-calendar-check-fill.text-black";
-                //- icon.id = "icon_" + j;
-                //- document.getElementById("btn" + j).appendChild(icon);
-                //- document.getElementById("icon_"+j).appendChild(btnText)
-                document.getElementById("sess1" + j).innerHTML = (train.train_pax - train.train_tot_session1) + ' available'
-                if (document.getElementById("sess2" + j)) {
-                  document.getElementById("sess2" + j).innerHTML = train.train_pax - train.train_tot_session2 + ' available'
-                }
-                j++;
-
-              }
-
-            } else if (this.status = 404) {
-              document.getElementById('text').innerHTML = 'Not Found';
-            }
-          }
-
-          xhr.onerror = function () {
-            console.log('Request Error...');
-          }
-          // Sends request
-          xhr.send();
+        function getTrainingClick() {
+            alert("Manage Trainings")
         }
+
+   

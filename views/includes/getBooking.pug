@@ -2,7 +2,8 @@ mixin generateBooking(bookings,title_session1)
     .d-flex.justify-content-between.mt-2.mx-4
         h3 Inductions
         p#livebooking
-        a(href="/print" type="button").btn.btn-outline-primary List Inductions
+        a(href="/print" type="button").btn.btn-primary 
+            i.bi.bi-list-stars &nbspList Inductions
 
     .book-container
         each booking, i in bookings
@@ -10,6 +11,7 @@ mixin generateBooking(bookings,title_session1)
             - let isFull = parseInt(booking.booking_num1) <= 0 ? true : false
             - let sessId = `isess1${i}`
             - let btnId = `ibtn${i}`
+            - let iConId = `icon-${i}`
             .booking.card.shadow.rounded 
                 .card-body 
                     h6.card-title-1.text-center.p-2 #{moment(booking.booking_date).format('ddd DD-MM-YYYY')}
@@ -22,11 +24,11 @@ mixin generateBooking(bookings,title_session1)
                         input(type="hidden" name="data_tit1" value=`${title_session1[i]}`)#data_tit1
                         .d-grid.gap-2 
                             if isFull
-                                button(type="submit" disabled).btn#btnId 
-                                    i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+                                button(type="submit" id=`${btnId}` disabled).btn
+                                    i(id=`${iConId}`).bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
                             else 
-                                button(type="submit"  enabled).btn#btnId 
-                                    i.bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+                                button(type="submit" id=`${btnId}` enabled).btn
+                                    i(id=`${iConId}`).bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
     script(src="/javascripts/gagscripts.js")
     script. 
         var interval = 1000; 
