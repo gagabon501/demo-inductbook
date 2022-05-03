@@ -188,9 +188,24 @@ function loadSked() {
     if (this.status == 200) {
       const sked = JSON.parse(this.responseText);
       const avail_date = sked.avail_date;
+      let btnLabel = "";
+      let isFull = false;
       avail_date.forEach((element, index) => {
+        btnLabel =
+          parseInt(element.booking_num1) <= 0
+            ? "&nbspFully Booked"
+            : "&nbspBook Now";
+        isFull = parseInt(element.booking_num1) <= 0 ? true : false;
         document.getElementById(`isess1${index}`).innerHTML =
           element.booking_num1; //solved the issue: 24-Nov-21 --> Now updates the dashboard (Inductions screen) "live" - same with "livebooking"
+        document.getElementById(`icon-${index}`).innerHTML = btnLabel;
+        if (isFull) {
+          document
+            .getElementById(`ibtn${index}`)
+            .setAttribute("disabled", "disabled");
+        } else {
+          document.getElementById(`ibtn${index}`).removeAttribute("disabled");
+        }
       });
 
       let booktxt = "";
@@ -213,6 +228,73 @@ function loadSked() {
     console.log("Request Error...");
   };
 
+  xhr.send();
+}
+
+function loadTrainSked() {
+  // Create XHR Object
+  var xhr = new XMLHttpRequest();
+  // OPEN - type, url/file, async
+  xhr.open("GET", "/getskedupdate", true);
+
+  console.log("READYSTATE: ", xhr.readyState);
+
+  // OPTIONAL - used for loaders
+  xhr.onprogress = function () {
+    console.log("READYSTATE: ", xhr.readyState);
+  };
+
+  xhr.onload = function () {
+    console.log("READYSTATE: ", xhr.readyState);
+    if (this.status == 200) {
+      var sked = JSON.parse(this.responseText);
+
+      //console.log(sked);
+
+      //TRAININGS TAB
+      let j = 0;
+      const train_data = Object.values(sked.files);
+
+      //console.log(train_data)
+      let btnLabel = "";
+      let isFull = false;
+
+      train_data.forEach((train, i) => {
+        btnLabel =
+          parseInt(train.train_pax) - parseInt(train.train_tot_session1) <= 0
+            ? "&nbspFully Booked"
+            : "&nbspBook Now";
+        isFull =
+          parseInt(train.train_pax) - parseInt(train.train_tot_session1) <= 0
+            ? true
+            : false;
+
+        document.getElementById(`sess1${i}`).innerHTML =
+          train.train_pax - train.train_tot_session1 + " available";
+        if (document.getElementById(`sess2${i}`)) {
+          document.getElementById(`sess2${i}`).innerHTML =
+            train.train_pax - train.train_tot_session2 + " available";
+        }
+
+        // Manage button label and state
+        document.getElementById(`icon-${i}`).innerHTML = btnLabel;
+        if (isFull) {
+          document
+            .getElementById(`btn${i}`)
+            .setAttribute("disabled", "disabled");
+        } else {
+          document.getElementById(`btn${i}`).removeAttribute("disabled");
+        }
+      });
+    } else if ((this.status = 404)) {
+      document.getElementById("text").innerHTML = "Not Found";
+    }
+  };
+
+  xhr.onerror = function () {
+    console.log("Request Error...");
+  };
+  // Sends request
   xhr.send();
 }
 
