@@ -1,0 +1,12 @@
+ 1252  cp ../inductbook/.env .
+ 1253  cat .env
+ 1362  cat .env | tr '\n' ' ' | xargs heroku config:set -a fcchsbooking
+ 1705  cp ../inductbook/.env.
+ 1706  cp ../inductbook/.env .
+ 2049  history | grep env
+ 2050  cat .env
+ 2051  cp ../inductbook/.env .
+ 2052  cat .env
+ 2054  history | grep env
+ 2055  cat .env | tr '\n' ' ' | xargs heroku config:set -a demo-inductbook
+ 2056  history | grep env > upload_env_heroku.txt
