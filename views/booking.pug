@@ -42,25 +42,25 @@ block layout-content
                     button(onclick="showBookForm('block')" data-bs-toggle="modal" data-bs-target="#confirmModal").col-md-12.btn.btn-primary Yes
             
 
-                .form-group.required#bookform
+                .form-group.required#bookform.form-fill.p-2.card
 
                     .alert.alert-danger.fade.show.text-center#filetype Invalid file type. Upload only image files (jpg, jpeg, png, bmp, tiff). Ensure both SiteSafe and Headshot contain only image files
 
                     .row
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="company_supervisor").control-label Company responsible supervisor
                             input(type="text" name="company_supervisor" placeholder="Company responsible supervisor" required minlength="3" pattern="^(?!\s*$).+").form-control#company_supervisor
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="first_tier").control-label 1st Tier Subcontractor company engaging you/your company
                             input(type="text" name="first_tier"  placeholder="1st Tier Subcontractor company engaging you/your company" required minlength="3" pattern="^(?!\s*$).+").form-control#first_tier
 
                     .row
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="fcc").control-label  FCC Supervisor Name
                             input(type="text" name="fcc_supervisor" placeholder="FCC Supervisor who approved the work" required minlength="3" pattern="^(?!\s*$).+").form-control#fcc
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="workpack").control-label  Workpack Number
-                            .input-group.mb-3
+                            .input-group
                                 label(for="inputGroupSelect01").input-group-text Workpack
                                 select(name="workpack").form-select#inputGroupSelect01
                                     option(selected) Choose...
@@ -71,56 +71,56 @@ block layout-content
                                     option(value="WP5 (Horizon Hotel)") WP5 (Horizon Hotel)
 
                     .row
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="firstName").control-label First name
                             input(type="text" name="firstname" placeholder="firstname" required minlength="3" pattern="^(?!\s*$).+").form-control#firstname
                     
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="lastName").control-label  Last name
                             input(type="text" name="lastname"  placeholder="lastname" required minlength="3" pattern="^(?!\s*$).+").form-control#lastname
 
                     .row
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="phone").control-label  Phone
                             input(type="text" name="phone" placeholder="phone" required minlength="3" pattern="^(?!\s*$).+").form-control#phone
 
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="company").control-label  Company
                             input(type="text" name="company" placeholder="company" required minlength="3" pattern="^(?!\s*$).+").form-control#company
 
                     .row
-                        .col-md-4.mb-3
+                        .col-md-4
                             label(for="sitesafe").control-label  Site Safe Number/Training Booking Number
                             input(type="text" name="sitesafe" placeholder="Site Safe card number" required minlength="3" pattern="^(?!\s*$).+").form-control#sitesafe
 
-                        .col-md-4.mb-3
+                        .col-md-4
                             label(for="expiry").control-label SS Expiry / SS Booking Date
                             input(type="date" name="expiry" placeholder="" value=`${moment().format('YYYY-MM-DD')}` required).form-control#expiry
 
-                        .col-md-4.mb-3
+                        .col-md-4
                             label(for="constructsafe").control-label Constructsafe No.
                             input(type="text" name="constructsafe" placeholder="Constructsafe number (optional)").form-control#constructsafe
 
 
                     .row
-                        .col-md-5.mb-3
+                        .col-md-5
                             label(for="ss_photo").control-label Site Safe Photo/Training Booking Screenshot
                             input(type="file" accept="image/*" name="ss_photo" required onchange="ssFname()").form-control#ss_photo
 
-                        .col-md-1.mb-3
+                        .col-md-1
                             .imagePreview#ss_photo1
 
-                        .col-md-5.mb-3
+                        .col-md-5
                             label(for="headshot").control-label  Headshot
                             input(type="file" accept="image/*" name="headshot" required onchange="hsFname()").form-control#headshot
-                        .col-md-1.mb-3
+                        .col-md-1
                             .imagePreview#headshot1
                     .row
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="emergency_person").control-label Emergency contact person
                             input(type="text" name="emergency_person" placeholder="emergency contact person" pattern="^(?!\s*$).+").form-control#emergency_person
 
-                        .col-md-6.mb-3
+                        .col-md-6
                             label(for="emergency_phone").control-label Emergency contact number
                             input(type="text" name="emergency_phone" placeholder="emergency contact number" required minlength="3" pattern="^(?!\s*$).+").form-control#emergency_phone
 

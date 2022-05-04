@@ -170,6 +170,10 @@ li.nav-item > a:hover {
   flex-direction: row;
 }
 
+.control-label {
+  margin: 10px 0;
+}
+
 .control-label:after {
   color: #d00;
   content: "*";
@@ -323,6 +327,10 @@ p {
 }
 .show {
   display: block;
+}
+
+.form-fill {
+  background-color: #ddd;
 }
 
 .vert_line {

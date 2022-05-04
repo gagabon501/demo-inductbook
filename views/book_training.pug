@@ -5,14 +5,14 @@ block nav-bar
     +navigation(userlevel)
 
 block layout-content
-    .container-fluid
-        main.col-md-12.ms-sm-auto.col-lg-12.px-md-4
+    .container
+        main.col-md-12.ms-sm-auto.col-lg-12.px-md-4.mt-5
             .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
-                h1 New Training Booking
+                h3 New Training Booking
                 h5 #{train_data[3]}
                 h5 Date: #{train_data[0]}/ Session: #{train_data[5]}
 
-            form(method='POST' action='/train/create')
+            form(method='POST' action='/train/create').form-fill.p-2.card
                 .row
                     .col-md-4.mb-3
                         label(for="firstName").control-label First name
@@ -48,6 +48,6 @@ block layout-content
                 input(type="hidden" name="obj_id" value=`${obj_id}`)#obj_id
                 input(type="hidden" name="data_venue" value=`${train_data[4]}`)#data_venue
                 input(type="hidden" name="data_session_title" value=`${train_data[5]}`)#data_session_title
-
-                button(type="submit").btn.btn-primary.btn-sm.mt-3 Submit
-                a(href=`/train/delete/${obj_id}`).btn.btn-danger.btn-sm.mt-3.mx-2 Cancel
+                .card-button-group
+                    button(type="submit").btn.btn-primary.btn-sm.mt-3 Submit
+                    a(href=`/train/delete/${obj_id}`).btn.btn-danger.btn-sm.mt-3.mx-2 Cancel

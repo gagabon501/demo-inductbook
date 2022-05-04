@@ -1,0 +1,60 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+  .container
+    main.mt-5
+      h3 Update training
+      .card.mt-3.p-2.form-fill
+        form(action=`/training/${train_data._id}` method="post")
+          .row.mt-2
+            .col-md-4
+              label(for="train_date").control-label Date
+              input(type="text" disabled name="train_date" value=`${moment(train_data.train_date).format("DD-MM-YYYY") }`).form-control#train_date
+              input(type="hidden" name="train_date1" value=`${files}`)#train_date1
+              input(type="hidden" name="inductions" value=`${inductions}`)#inductions
+              input(type="hidden" name="holidays" value=`${holidays}`)#holidays
+              input(type="hidden" name="lastinductsession" value=`${lastinductsession}`)#lastinductsession
+              input(type="hidden" name="is_adding" value=`${is_adding}`)#is_adding
+            .col-md-8
+              label(for="train_title").control-label Title
+              input(type="text" name="train_title" value=`${train_data.train_title}`).form-control#train_title
+          .row.mt-2
+            .col-md-4
+              label(for="train_avail").control-label#rowspace Available for</label>
+              select(select name="train_avail" value=`${train_data.train_avail}`).form-select#train_avail
+                  option(value="Internal") Internal only
+                  option(value="External") External only
+                  option(value="Both") Both Internal and External
+
+            .col-md-4
+              label(for="train_session1").control-label Session-1
+              input(type="text" name="train_session1" value=`${train_data.train_session1}`).form-control#train_session1
+
+            .col-md-4
+              label(for="train_session2").control-label Session-2
+              input(type="text" name="train_session2" value=`${train_data.train_session2}`).form-control#train_session2
+
+          .row.mt-2
+            .col-md-9
+              label(for="train_venue").control-label Venue
+              input(type="text" name="train_venue" value=`${train_data.train_venue}`).form-control#train_venue
+            .col-md-3.mb-3
+              label(for="train_pax").control-label Max Pax Per Session
+              input(type="number" name="train_pax" value=`${train_data.train_pax}`).form-control#train_pax
+          .card-button-group
+            button(type="submit").btn.btn-primary.mx-2.btn-sm
+              i.bi.bi-pencil-square &nbspSave
+            a(href="/training").btn.btn-danger.btn-sm
+              bi.bi-trash-fill &nbspCancel
+  script. 
+    function showEditForm() {
+      document.getElementById("trigger").click()
+    }
+
+    function goTraining() {
+      location.replace("/training")
+    }

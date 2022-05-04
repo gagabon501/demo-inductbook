@@ -123,7 +123,7 @@ exports.training_create_get = function (req, res, next) {
           return next(err);
         }
 
-        //console.log(list_holiday)
+        console.log(list_training);
         res.render("trainings", {
           files: list_training,
           datetoday: dateToday,
