@@ -3,7 +3,7 @@ mixin navigation(level, activePage)
         .container-fluid
             button.navbar-toggler(type='button' data-bs-toggle='collapse' data-bs-target='#navbarTogglerDemo03' aria-controls='navbarTogglerDemo03' aria-expanded='false' aria-label='Toggle navigation')
                 span.navbar-toggler-icon
-            a(href="/home").navbar-brand#brand FCC B+I Booking System #{version}
+            a(href="/home").navbar-brand#brand NodeSafe Web Booking System #{version}
             .collapse.navbar-collapse#navbarTogglerDemo03
                 ul.navbar-nav.me-auto.mb-2.mb-lg-0
                     li.nav-item
@@ -13,16 +13,12 @@ mixin navigation(level, activePage)
                     li.nav-item
                         a.nav-link(href='/db_trainings') Trainings
                     li.nav-item
-                        a.nav-link(href='#') Other Bookings
+                        a.nav-link(href='/db_genskeds') Other Bookings
                     case level 
                         when 4 
                             li.nav-item.dropdown
                                 a.nav-link.dropdown-toggle#navbarDropdownMenuLink(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Utilities
                                 ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
-                                    li
-                                        a.dropdown-item(href='#') Manage Trainings
-                                    li
-                                        a.dropdown-item(href='#') Manage Other Bookings
                                     li
                                         a.dropdown-item(href='#') Manage Holidays
                                     li

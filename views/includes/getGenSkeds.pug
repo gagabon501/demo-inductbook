@@ -1,0 +1,53 @@
+mixin bookGenSkeds(files)
+    - console.log(files)
+    .d-flex.justify-content-between.mt-2.mx-4
+        h3 Other Bookings
+        //- a(href="/print_trainings" type="button").btn.btn-outline-primary List Trainngs
+        //- a(href="/trainings" type="button").btn.btn-outline-success Manage Trainngs
+        div(role="group" aria-label="Options" style="display: flex").btn-group
+          a(href="/print_genskeds" role="button").btn.btn-success.btn-sm
+              i.bi.bi-list-stars &nbspList Other Bookings
+          a(href="/gensked" role="button").btn.btn-success.btn-sm 
+              i.bi.bi-kanban &nbspManage Other Bookings
+
+    .book-container
+        each booking, i in files
+            - let btnLabel = booking.gensked_pax - booking.gensked_tot <= 0 ? "Fully Booked" : "Book Now"
+            - let isFull = booking.gensked_pax - booking.gensked_tot <= 0 ? true : false
+            - let isDummy1 = booking.gensked_title === 'dummy' ? true : false
+            - let classHide1 = isDummy1 ? 'hide-item' : ''
+            - let sessId = `sess1${i}`
+            - let sessId2 = `sess2${i}`
+            - let btnId = `btn${i}`
+            - let iConId = `icon-${i}`
+            div(class=`${classHide1}`)
+                .booking.card.shadow.rounded 
+                    .card-body 
+                        h6.card-title-1.text-center.p-2#toptit #{booking.gensked_title.slice(0,26)}
+                        h6.card-title.text-center #{moment(booking.gensked_date).format('DD-MMM-YYYY')}
+                        p.card-text.text-center.text-black #{booking.gensked_session}  = 
+                            span(id=`${sessId}`) #{parseInt(booking.gensked_pax) - parseInt(booking.gensked_tot_booking)} available
+                        p.card-text.text-center.text-black Venue: #{booking.gensked_venue}
+
+                    .card-footer.text-center.p-0 
+                        form(action="/book_gensked/create" method="get")
+                            input(type="hidden" name="data_gensked_date" value=`${moment(booking.gensked_date).format('DD-MMM-YYYY')}`)#data_gensked_date
+                            input(type="hidden" name="data_gensked_id" value=`${booking._id}`)#data_gensked_id
+                            input(type="hidden" name="data_gensked_pax" value=`${booking.gensked_pax}`)#data_gensked_pax 
+                            input(type="hidden" name="data_gensked_title" value=`${booking.gensked_title}`)#data_gensked_title
+                            input(type="hidden" name="data_gensked_session" value=`${booking.gensked_session}`)#data_gensked_session 
+                            input(type="hidden" name="data_gensked_venue" value=`${booking.gensked_venue}`)#data_gensked_venue
+                            .d-grid.gap-2 
+                                if isFull
+                                    button(type="submit" id=`${btnId}` disabled).btn
+                                        i(id=`${iConId}`).bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+                                else 
+                                    button(type="submit" id=`${btnId}` enabled).btn
+                                        i(id=`${iConId}`).bi.bi-calendar-check-fill.text-black &nbsp#{btnLabel}
+    script(src="/javascripts/gagscripts.js")
+    script. 
+        const interval = 10000;  
+        setInterval(loadGenSked, interval);
+
+
+   

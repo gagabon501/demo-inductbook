@@ -399,16 +399,6 @@ exports.book_create_get = function (req, res, next) {
   const today = new Date();
   let totrec = 0;
 
-  /*
-    <input id="data_gensked_date" type="hidden" name="data_gensked_date" value=<%= moment(genskeds[k].gensked_date).format('DD-MMM-YYYY') %>>
-    <input id="data_gensked_id" type="hidden" name="data_gensked_id" value=<%= genskeds[k]._id %>>
-    <input id="data_gensked_pax" type="hidden" name="data_gensked_pax" value=<%= genskeds[k].gensked_pax %>>
-    <input id="data_gensked_title" type="hidden" name="data_gensked_title" value="<%= genskeds[k].gensked_title %>">
-    <input id="data_gensked_session" type="hidden" name="data_gensked_session" value="<%= genskeds[k].gensked_session %>">
-    <input id="data_gensked_venue" type="hidden" name="data_gensked_venue" value="<%= genskeds[k].gensked_venue %>">
-
-*/
-
   async.parallel(
     {
       totrec: function (callback) {
@@ -676,7 +666,7 @@ exports.book_create_post = [
             sendHtmlMail(recvr, subject, emaildata, false, false); //located at the top of this file
             //sendHtmlMail(recvr, subject, emailbody, fileAttachment, isInduction)
             req.flash("success", `Confirmation email sent to: ${recvr}`);
-            res.redirect("/home");
+            res.redirect("/db_genskeds");
           }
         ); //Sked.findByIdAndUpdate
       } else {

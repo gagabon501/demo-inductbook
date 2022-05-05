@@ -1,4 +1,4 @@
-mixin listTrainBookingCardView(listObj,subHeading,level)
+mixin listGenSkedBookingCardView(listObj,subHeading,level)
     
     .container-fluid
         .menu-container-train
@@ -17,7 +17,7 @@ mixin listTrainBookingCardView(listObj,subHeading,level)
                             .modal-header.alert-primary
                                 h5.modal-title#dateEntryModalLabel Filter Date
                             .modal-body
-                                form(action="/print_trainings" method="get")
+                                form(action="/print_genskeds" method="get")
                                     .form-group
                                         label(for="start_date").col-form-label Start date:
                                         input(type="date" name="start_date").form-control#start_date
@@ -28,7 +28,6 @@ mixin listTrainBookingCardView(listObj,subHeading,level)
                                         i.bi.bi-x-circle &nbspClose
                                     button(type="submit" data-bs-dismiss="modal").btn.btn-primary.mt-3#button_update 
                                         i.bi.bi-pencil-square &nbspUpdate
-            - console.log(listObj)
             if listObj.length < 1
                 h5(role="alert" style="align-items: center; justify-contents: center; margin: auto; width: 100%;").alert.alert-danger.text-center No record to show
             else
@@ -38,31 +37,25 @@ mixin listTrainBookingCardView(listObj,subHeading,level)
                         - const show = i < 10 ? 'block' : 'none'
 
                         div(id=`card-${i}` style=`display:${show}`).card-list
-                            div(style="display: grid; grid-template-rows: 240px 50px")
+                            div(style="display: grid; grid-template-rows: 150px 50px")
                                 div#cardBody
                                     .card-body-divider
                                         div(style="margin-top:0; margin-left: 5px; line-height: .2")
                                             h5(id=`h5-${i}`) #{record.firstname} #{record.lastname}
                                             p Phone: #{record.phone}
                                             p Company: #{record.company}
-                                            p(style="font-weight: bold; margin-top: 10px;") Training Title: #{record.train_title}
-                                            p(style="font-weight: bold") Training Date: #{moment(record.date_attend,'DD-MM-YYYY').format("DD-MM-YYYY")}
-                                            p(style="font-weight: bold") Session: #{record.session}
-                                    .card-body-divider
-                                        div(style="margin-top:10px; margin-left: 5px; line-height: .2")
-                                            p 1st Language: #{record.lang1}
-                                            p 2nd Language: #{record.lang2}
-                                            p Available for: #{record.train_avail}
+                                            p(style="font-weight: bold") Event Title: #{record.train_title}
+                                            p(style="font-weight: bold") Event Date: #{moment(record.date_attend,'DD-MM-YYYY').format("DD-MM-YYYY")}
                                             p Date Booked: #{moment(record.bookdate,'DD-MM-YYYY').format("DD-MM-YYYY")}
                                             p Booked by: #{record.bookedby}
                                 .card-button-group
                                     if level > 1 && (moment(record.date_attend,'DD-MM-YYYY').format("YYYY-MM-DD") >= moment(Date.now()).format("YYYY-MM-DD"))
-                                        a(href=`/train_booking/edit/${record._id}` role="button").btn.btn-primary.mx-2.btn-sm
+                                        a(href=`/gensked_booking/edit/${record._id}` role="button").btn.btn-primary.mx-2.btn-sm
                                             i.bi.bi-pencil-square &nbspEdit
-                                        a(href=`/train_booking/delete/${record._id}` role="button").btn.btn-danger.btn-sm
+                                        a(href=`/book_gensked/delete/${record._id}` role="button").btn.btn-danger.btn-sm
                                             bi.bi-trash-fill &nbspDelete
                                     else if level <= 1 && (moment(record.date_attend,'DD-MM-YYYY').format("YYYY-MM-DD") >= moment(Date.now()).format("YYYY-MM-DD"))
-                                        a(href=`/train_booking/delete/${record._id}` role="button").btn.btn-danger.btn-sm
+                                        a(href=`/book_gensked/delete/${record._id}` role="button").btn.btn-danger.btn-sm
                                             bi.bi-trash-fill &nbspDelete
 
                 div(style="display: flex; margin: 5px auto;")

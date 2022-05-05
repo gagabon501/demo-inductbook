@@ -1,0 +1,51 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+    .container
+        main.col-md-12.ms-sm-auto.col-lg-12.px-md-4.mt-5
+            .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+                - const session = booking_data.session=="1" ? booking_data.train_session1 : booking_data.train_session2
+                - console.log("SESSION: ",booking_data.session)
+                h3 Update Training Booking
+                h5 #{booking_data.train_title}
+                h5 Date: #{moment(training_date).format("DD-MM-YYYY")}/Session: #{session}
+
+            form(method='POST' action=`/train_booking/edit/${booking_data._id}`).form-fill.p-2.card
+                .row
+                    .col-md-4.mb-3
+                        label(for="firstName").control-label First name
+                        input(type="text"  name="firstname" value=`${booking_data.firstname}` required minlength="3" pattern="^(?!\s*$).+").form-control#firstname
+                    .col-md-4.mb-3
+                        label(for="lastName").control-label Last name
+                        input(type="text" name="lastname"  value=`${booking_data.lastname}` required minlength="3" pattern="^(?!\s*$).+").form-control#lastname
+                    .col-md-4.mb-3
+                        label(for="phone").control-label Phone
+                        input(type="text"  name="phone" value=`${booking_data.phone}` required minlength="3" pattern="^(?!\s*$).+").form-control#phone
+
+                .row
+                    .col-md-6.mb-3
+                        label(for="position").control-label Position
+                        input(type="text"  name="position"  value=`${booking_data.position}` required minlength="3" pattern="^(?!\s*$).+").form-control#position
+
+                    .col-md-6.mb-3
+                        label(for="company").control-label Company
+                        input(type="text"  name="company" value=`${booking_data.company}` required minlength="3" pattern="^(?!\s*$).+").form-control#company
+
+                .row
+                    .col-md-6.mb-3
+                        label(for="lang1").control-label 1st Language
+                        input(type="text" name="lang1"  value=`${booking_data.lang1}` required minlength="3" pattern="^(?!\s*$).+").form-control#lang1
+
+                    .col-md-6.mb-3
+                        label(for="lang2").control-label 2nd Language
+                        input(type="text" name="lang2" value=`${booking_data.lang2}` required minlength="3" pattern="^(?!\s*$).+").form-control#lang2
+
+                input(type="hidden" name="data_date" value=`${booking_data.date_attend}`)#data_date  
+                input(type="hidden" name="data_sked" value=`${booking_data.session}`)#data_sked
+                .card-button-group
+                    button(type="submit").btn.btn-primary.btn-sm.mt-3 Submit
+                    a(href="javascript:history.go(-1)").btn.btn-danger.btn-sm.mt-3.mx-2 Go back

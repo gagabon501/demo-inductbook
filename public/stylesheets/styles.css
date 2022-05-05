@@ -243,10 +243,22 @@ h1#login {
   width: 100%;
 }
 
+.login_container {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: fit-content;
+}
+
 .login {
   height: 100%;
   width: 100%;
-  background-image: url("/images/nzicc.jpg");
+  /* background-image: url("/images/nzicc.jpg"); */
+  background-color: #3780e9;
   background-position: center;
   background-repeat: no-repeat;
   position: relative;
@@ -262,12 +274,12 @@ h1#login {
   display: grid;
   grid-template-columns: 1fr 50px 1fr;
   color: black;
-  margin: 0;
+  /* margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-right: -50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); */
 }
 
 .left_login {

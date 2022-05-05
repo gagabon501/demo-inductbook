@@ -1,0 +1,17 @@
+extends includes/layout 
+
+block variables 
+    - var activePage = 1
+
+block nav-bar
+    body(onload = "JavaScript:loadGenSked();")
+    include includes/nav
+    +navigation(userlevel, activePage)
+
+block layout-content 
+    include includes/getGenSkeds
+    +bookGenSkeds(genskeds)
+        
+
+
+

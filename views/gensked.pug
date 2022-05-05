@@ -1,0 +1,75 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+  .container-fluid
+    main.col-md-12.ms-sm-auto.col-lg-12
+      div(data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true").modal.fade#staticBackdrop
+          .modal-dialog.modal-xl
+            .modal-content
+              .modal-header
+                h5.modal-title#staticBackdropLabel Add new booking
+                button(type="button" data-bs-dismiss="modal" aria-label="Close").btn-close
+              .modal-body.form-fill.p-3.card
+                form(action="/gensked" method="post")
+                  .row.mt-2
+                    .col-md-2
+                      label(for="gensked_date").control-label Date
+                      input(type="date" name="gensked_date" placeholder="DD-MM-YYYY").form-control#gensked_date
+                      input(type="hidden" name="gensked_date1" value=`${files}`)#gensked_date1
+                      input(type="hidden" name="inductions" value=`${inductions}`)#inductions
+                      input(type="hidden" name="holidays" value=`${holidays}`)#holidays
+                      input(type="hidden" name="lastinductsession" value=`${lastinductsession}`)#lastinductsession
+                      input(type="hidden" name="is_adding" value=`${is_adding}`)#is_adding
+                    .col-md-10
+                      label(for="gensked_title").control-label Title
+                      input(type="text" name="gensked_title").form-control#gensked_title
+                  .row.mt-2
+                    .col-md-2
+                      label(for="gensked_session").control-label Session
+                      input(type="text" name="gensked_session").form-control#gensked_session
+                    .col-md-8
+                      label(for="gensked_venue").control-label Venue
+                      input(type="text" name="gensked_venue").form-control#gensked_venue
+                    .col-md-2.mb-3
+                      label(for="gensked_pax").control-label Max Pax Per Session
+                      input(type="number" name="gensked_pax").form-control#train_pax
+                  .card-button-group.mb-2
+                    button(type="submit").btn.btn-primary.mx-2.btn-sm
+                      i.bi.bi-pencil-square &nbspSave
+                    a(href="#" role="button" data-bs-dismiss="modal").btn.btn-danger.btn-sm
+                      bi.bi-trash-fill &nbspCancel
+
+      .d-flex.justify-content-between.mt-2
+        h2 Manage Other Bookings
+        button(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop").btn.btn-primary.btn-sm
+          i.bi.bi-file-earmark-plus-fill &nbspAdd Event
+
+      .d-flex.mt-2.mx-2
+      .book-container
+        each booking, i in files 
+          - let btnLabel = booking.gensked_pax - booking.gensked_tot_booking <= 0 ? "Fully Booked" : "Book Now"
+          - let isFull = booking.gensked_pax - booking.gensked_tot_booking <= 0 ? true : false
+          - let isDummy1 = booking.gensked_title === 'dummy' ? true : false
+          - let classHide1 = isDummy1 ? 'hide-item' : ''
+          - let sessId = `sess1${i}`
+          - let sessId2 = `sess2${i}`
+          - let btnId = `btn${i}`
+          - let iConId = `icon-${i}`
+          div(class=`${classHide1}`)
+              div(style="display: grid; grid-template-rows: 160px 50px").booking.card.shadow.rounded 
+                .card-body 
+                  h6.card-title-1.text-center.p-2#toptit #{booking.gensked_title.slice(0,26)}
+                  h6.card-title.text-center #{moment(booking.gensked_date).format('DD-MMM-YYYY')}
+                  p.card-text.text-center.text-black #{booking.gensked_session}  = 
+                    span(id=`${sessId}`) #{booking.gensked_pax - booking.gensked_tot_booking} available
+                  p.card-text.text-center.text-black Venue: #{booking.gensked_venue}
+                          
+                .card-button-group
+                    a(href=`/gensked/${booking._id}`).btn.btn-primary.mx-2.btn-sm
+                        i.bi.bi-pencil-square &nbspEdit
+                    a(href=`/gensked/delete/${booking._id}` role="button").btn.btn-danger.btn-sm
+                        bi.bi-trash-fill &nbspDelete

@@ -298,6 +298,79 @@ function loadTrainSked() {
   xhr.send();
 }
 
+function loadGenSked() {
+  // alert("GenSked");
+  // Create XHR Object
+  var xhr = new XMLHttpRequest();
+  // OPEN - type, url/file, async
+  xhr.open("GET", "/getskedupdate", true);
+
+  console.log("READYSTATE: ", xhr.readyState);
+
+  // OPTIONAL - used for loaders
+  xhr.onprogress = function () {
+    console.log("READYSTATE: ", xhr.readyState);
+  };
+
+  xhr.onload = function () {
+    console.log("READYSTATE: ", xhr.readyState);
+    if (this.status == 200) {
+      var sked = JSON.parse(this.responseText);
+
+      let j = 0;
+      const gensked_data = Object.values(sked.genskeds);
+
+      console.log("gensked_data: ", gensked_data);
+      let btnLabel = "";
+      let isFull = false;
+
+      gensked_data.forEach((gensked, i) => {
+        btnLabel =
+          parseInt(gensked.gensked_pax) -
+            parseInt(gensked.gensked_tot_booking) <=
+          0
+            ? "&nbspFully Booked"
+            : "&nbspBook Now";
+        isFull =
+          parseInt(gensked.gensked_pax) -
+            parseInt(gensked.gensked_tot_booking) <=
+          0
+            ? true
+            : false;
+
+        // document.getElementById(`sess1${i}`).innerHTML =
+        //   parseInt(gensked.gensked_pax) -
+        //   parseInt(gensked.gensked_tot_booking) +
+        //   " available";
+
+        console.log("gensked: ", gensked);
+
+        document.getElementById(`sess1${i}`).innerHTML = `${
+          parseInt(gensked.gensked_pax) - parseInt(gensked.gensked_tot_booking)
+        } available`;
+
+        // Manage button label and state
+        document.getElementById(`icon-${i}`).innerHTML = btnLabel;
+        if (isFull) {
+          document
+            .getElementById(`btn${i}`)
+            .setAttribute("disabled", "disabled");
+        } else {
+          document.getElementById(`btn${i}`).removeAttribute("disabled");
+        }
+      });
+    } else if ((this.status = 404)) {
+      document.getElementById("text").innerHTML = "Not Found";
+    }
+  };
+
+  xhr.onerror = function () {
+    console.log("Request Error...");
+  };
+  // Sends request
+  xhr.send();
+}
+
 function countDown(n) {
   let minutes = n / 60;
   const mintxt = minutes > 1 ? "minutes" : "minute";

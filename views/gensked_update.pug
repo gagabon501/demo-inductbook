@@ -1,0 +1,39 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+  .container
+    main.mt-5
+      h3 Update Event
+      .card.mt-3.p-2.form-fill
+        form(action=`/gensked/${gensked_data._id}` method="post")
+          .row.mt-2
+            .col-md-2
+              label(for="gensked_date").control-label Date
+              input(type="text" disabled name="gensked_date" value=`${moment(gensked_data.gensked_date).format("DD-MM-YYYY") }`).form-control#gensked_date
+              input(type="hidden" name="gensked_date1" value=`${files}`)#gensked_date1
+              input(type="hidden" name="inductions" value=`${inductions}`)#inductions
+              input(type="hidden" name="holidays" value=`${holidays}`)#holidays
+              input(type="hidden" name="lastinductsession" value=`${lastinductsession}`)#lastinductsession
+              input(type="hidden" name="is_adding" value=`${is_adding}`)#is_adding
+            .col-md-10
+              label(for="gensked_title").control-label Title
+              input(type="text" name="gensked_title" value=`${gensked_data.gensked_title}`).form-control#gensked_title
+          .row.mt-2
+            .col-md-2
+              label(for="gensked_session").control-label Session
+              input(type="text" name="gensked_session" value=`${gensked_data.gensked_session}`).form-control#gensked_session
+            .col-md-8
+              label(for="gensked_venue").control-label Venue
+              input(type="text" name="gensked_venue" value=`${gensked_data.gensked_venue}`).form-control#gensked_venue
+            .col-md-2.mb-3
+              label(for="gensked_pax").control-label Max Pax Per Session
+              input(type="number" name="gensked_pax" value=`${gensked_data.gensked_pax}`).form-control#gensked_pax
+          .card-button-group
+            button(type="submit").btn.btn-primary.mx-2.btn-sm
+              i.bi.bi-pencil-square &nbspSave
+            a(href="/gensked").btn.btn-danger.btn-sm
+              bi.bi-trash-fill &nbspCancel
