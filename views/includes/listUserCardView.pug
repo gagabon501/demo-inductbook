@@ -33,16 +33,17 @@ mixin listUserCardView(listObj,subHeading,level,buttonsPerScreen)
                     const numScreens = Math.trunc(numPages/buttonsPerScreen) + 1 
                     const lastIndex = numScreens > 1 ? 5 : numPages
                     let page = 1
-                div(style="display: flex; margin: 5px auto;")#pageButtons
-                    nav#nav 
-                        ul.pagination.bg-primary#ul
-                            li.page-item#prevli
-                                button(onclick=`showPrev(${numPages})` disabled).page-link#prevBtn Prev
-                            while page <= lastIndex
-                                li.page-item
-                                    button(onclick=`paginate(${page}, ${numPages}, ${listObj.length}, ${itemsPerPage})` id=`btn-${page}`).page-link #{page++}
-                            li.page-item#nextli
-                                button(onclick=`showNext(${numPages})`).page-link#nextBtn Next
+                if listObj.length > 100
+                    div(style="display: flex; margin: 5px auto;")#pageButtons
+                        nav#nav 
+                            ul.pagination.bg-primary#ul
+                                li.page-item#prevli
+                                    button(onclick=`showPrev(${numPages})` disabled).page-link#prevBtn Prev
+                                while page <= lastIndex
+                                    li.page-item
+                                        button(onclick=`paginate(${page}, ${numPages}, ${listObj.length}, ${itemsPerPage})` id=`btn-${page}`).page-link #{page++}
+                                li.page-item#nextli
+                                    button(onclick=`showNext(${numPages})`).page-link#nextBtn Next
 
     script(src="/javascripts/gagscripts.js")
     script. 
