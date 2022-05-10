@@ -56,12 +56,17 @@ mixin listUserCardView(listObj,subHeading,level,buttonsPerScreen)
             let startPage = parseInt(lastIndex)
             let endPage = startPage + 4
 
-            if (endPage > numPages) {
+            if (endPage >= numPages) {
                 endPage = numPages
             }
 
             let btnId = ""
             let j = 1
+
+            for(k=1; k <= 5; k++) {
+                btnId= `btn-${k}`
+                document.getElementById(`${btnId}`).setAttribute("style","display:none")
+            }
 
             for(i=startPage; i <= endPage; i++) {
                 btnId= `btn-${j}`
@@ -71,6 +76,7 @@ mixin listUserCardView(listObj,subHeading,level,buttonsPerScreen)
                     document.getElementById("nextBtn").setAttribute("disabled","disabled")
                 } else {
                     btnId= `btn-${j}`
+                    document.getElementById(`${btnId}`).setAttribute("style","display:block")
                     document.getElementById(`${btnId}`).innerText = i
                 }
                 j++
@@ -81,7 +87,7 @@ mixin listUserCardView(listObj,subHeading,level,buttonsPerScreen)
 
         function showPrev(numPages) {
             const endPage = localStorage.getItem("lastIndex") == null || localStorage.getItem("lastIndex") == undefined ? 0 : parseInt(localStorage.getItem("lastIndex")) - 6
-            const startPage = parseInt(endPage) - 4
+            const startPage = parseInt(endPage) - 4 < 1 ? 1 : parseInt(endPage) - 4
 
             document.getElementById("nextBtn").removeAttribute("disabled")
 
