@@ -570,7 +570,7 @@ exports.sked_create_post = [
               recvr,
               subject,
               emaildata,
-              "Fletcher Induction Requirements 01-03-22 Rev3.pdf",
+              "Induction Requirements.pdf",
               true
             ); //located at the top of this file
             req.flash("success", `Confirmation email sent to: ${recvr}`);
