@@ -1,0 +1,135 @@
+mixin listUserCardView(listObj,subHeading,level,buttonsPerScreen)
+    .container-fluid
+        .menu-container-train
+            input(type="text" placeholder="Search" onkeyup=`filterTrainViewCard(${listObj.length})` aria-label="Search").form-control#search-input
+        .card-view-container
+            if listObj.length < 1
+                h5(role="alert" style="align-items: center; justify-contents: center; margin: auto; width: 100%;").alert.alert-danger.text-center No record to show
+            else
+                .card-view
+                    each record,i in listObj
+                        - const perPage = 20
+                        - const show = i < perPage ? 'block' : 'none'
+                        - const role = record.level > 1 ? 'Admin' : 'User'
+
+                        div(id=`card-${i}` style=`display:${show}`).card-list
+                            div(style="display: grid; grid-template-rows: 100px 50px")
+                                div#cardBody
+                                    .card-body-divider
+                                        div(style="margin-top:0; margin-left: 5px; line-height: .2")
+                                            h5(id=`h5-${i}`) #{record.name}
+                                            p email: #{record.email}
+                                            p Company: #{record.company}
+                                            p User type: #{role}
+                                .card-button-group
+                                    a(href=`/user_edit/${record._id}` role="button").btn.btn-primary.mx-2.btn-sm
+                                        i.bi.bi-pencil-square &nbspEdit
+                                    a(href=`/user_edit/delete/${record._id}` role="button").btn.btn-danger.btn-sm
+                                        bi.bi-trash-fill &nbspDelete
+                - 
+                    const itemsPerPage = 20
+                    const buttonsPerScreen = 5
+                    const numPages = Math.trunc(listObj.length/itemsPerPage) + 1
+                    const numScreens = Math.trunc(numPages/buttonsPerScreen) + 1 
+                    const lastIndex = numScreens > 1 ? 5 : numPages
+                    let page = 1
+                div(style="display: flex; margin: 5px auto;")#pageButtons
+                    nav#nav 
+                        ul.pagination.bg-primary#ul
+                            li.page-item#prevli
+                                button(onclick=`showPrev(${numPages})` disabled).page-link#prevBtn Prev
+                            while page <= lastIndex
+                                li.page-item
+                                    button(onclick=`paginate(${page}, ${numPages}, ${listObj.length}, ${itemsPerPage})` id=`btn-${page}`).page-link #{page++}
+                            li.page-item#nextli
+                                button(onclick=`showNext(${numPages})`).page-link#nextBtn Next
+
+    script(src="/javascripts/gagscripts.js")
+    script. 
+ 
+        function showNext(numPages) {
+            const lastIndex = localStorage.getItem("lastIndex") == null || localStorage.getItem("lastIndex") == undefined ? 6 : localStorage.getItem("lastIndex")
+            const oldLastIndex = localStorage.getItem("oldLastIndex") == null || localStorage.getItem("oldLastIndex") == undefined ? localStorage.setItem("oldLastIndex",0) : localStorage.setItem("oldLastIndex",parseInt(lastIndex))
+
+            document.getElementById("prevBtn").removeAttribute("disabled")
+
+            let startPage = parseInt(lastIndex)
+            let endPage = startPage + 4
+
+            if (endPage > numPages) {
+                endPage = numPages
+            }
+
+            let btnId = ""
+            let j = 1
+
+            for(i=startPage; i <= endPage; i++) {
+                btnId= `btn-${j}`
+                
+                if (i > numPages) {
+                    document.getElementById(`${btnId}`).setAttribute("style","display:none")
+                    document.getElementById("nextBtn").setAttribute("disabled","disabled")
+                } else {
+                    btnId= `btn-${j}`
+                    document.getElementById(`${btnId}`).innerText = i
+                }
+                j++
+            }
+
+            localStorage.setItem("lastIndex",parseInt(i))
+        }
+
+        function showPrev(numPages) {
+            const endPage = localStorage.getItem("lastIndex") == null || localStorage.getItem("lastIndex") == undefined ? 0 : parseInt(localStorage.getItem("lastIndex")) - 6
+            const startPage = parseInt(endPage) - 4
+
+            document.getElementById("nextBtn").removeAttribute("disabled")
+
+            if (startPage <= 1) {
+                document.getElementById("prevBtn").setAttribute("disabled","disabled")
+            } else {
+                document.getElementById("prevBtn").removeAttribute("disabled")
+            }
+
+            let btnId = ""
+            let j = 1
+
+            for(i=startPage; i <= endPage; i++) {
+                btnId= `btn-${j}`
+                document.getElementById(`${btnId}`).innerText = i
+                j++
+            }
+            
+            localStorage.setItem("lastIndex",parseInt(i))
+        }
+
+        function paginate(pageNum,pages,listLength,perPage) {
+            const pageNo = parseInt(document.getElementById(`btn-${pageNum}`).innerText)
+            localStorage.setItem("listLength", listLength)
+            localStorage.setItem("pages",pages)
+            localStorage.setItem("pageNum",pageNo)
+            localStorage.setItem("nextPage",pageNo < pages ? pageNo+1 : pages)
+            localStorage.setItem("prevPage",pageNo <= 1 ? 1 : pageNo - 1)
+
+            const startIndex = pageNo == 1 ? 0 : parseInt(localStorage.getItem("prevPage")) * perPage 
+            const lastIndex = startIndex+perPage
+
+            for(j=0; j<listLength; j++) {
+                document.getElementById(`card-${j}`).style.display="none"
+            }
+
+            for(i = startIndex; i < lastIndex; i++) {
+                document.getElementById(`card-${i}`).style.display="block"
+            }
+        }
+
+        function prevPage(pages,listLength) {
+            const prevPage = localStorage.getItem('prevPage')
+            paginate(prevPage,pages,listLength)
+        }
+
+        function nextPage(pages,listLength) {
+            const nextPage = localStorage.getItem('nextPage')
+            paginate(nextPage,pages,listLength)
+        }
+

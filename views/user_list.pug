@@ -1,0 +1,11 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel, activePage)
+
+block layout-content 
+    body(onload="JavaScript:initUserListVariables();")
+    include includes/listUserCardView
+    +listUserCardView(files,"Manage Users",level)
+    

@@ -1,0 +1,34 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+  .container
+    main.mt-5
+      h3 Update Event
+      .card.mt-3.p-2.form-fill
+        form(action=`/holiday/${holiday_data._id}` method="post")
+          .row.mt-2
+            .col-md-2
+              label(for="holiday_date").control-label Date
+              input(type="date" name="holiday_date" value=`${dholiday}`).form-control#holiday_date
+            .col-md-10
+              label(for="holiday_short_name").control-label Short name
+              input(type="text" name="holiday_short_name" value=`${holiday_data.short_name}`).form-control#holiday_short_name
+          .row.mt-2
+            .col-md-8
+              label(for="holiday_desc").control-label Description
+              input(type="text" name="holiday_desc" value=`${holiday_data.holiday_name}`).form-control#holiday_name
+            .col-md-4
+              label(for="train_type").control-label Applicable to</label>
+              select(select name="train_type" value=`${holiday_data.train_type}`).form-select#train_type
+                  option(value=1) Induction only
+                  option(value=2) Training only
+                  option(value=3) Both Induction and Training
+          .card-button-group.mt-3
+            button(type="submit").btn.btn-primary.mx-2.btn-sm
+              i.bi.bi-pencil-square &nbspSave
+            a(href="/holiday").btn.btn-danger.btn-sm
+              bi.bi-trash-fill &nbspCancel

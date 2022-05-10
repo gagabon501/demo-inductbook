@@ -1,0 +1,71 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel, activePage)
+
+block layout-content
+    main.container
+        h1 App Settings
+        
+        form(action="/settings" method="post" autocomplete="off").mt-2
+            p.text-center.text-danger.font-weight-bold #{errmsg}
+            .row
+                .col-md-6.mb-2
+                    label(for="no_session_days").form-label Select dates to block
+                    input(type="text" placeholder="Pick the multiple dates" value=`${settings[0].no_session_days}` name="no_session_days").form-control.date#no_session_days
+                .col-md-6.mb-2
+                    label(for="max_pax").form-label Maximum pax per session
+                    input(type="number" value=`${settings[0].max_pax}` name="max_pax" placeholder="Max pax per induction session" required autofocus).form-control#max_pax
+            .row
+                .col-md-12.mb-2
+                    label(for="banner_text").form-label Banner text
+                    input(type="text"  value=`${settings[0].banner_text}` name="banner_text"  placeholder="Banner text" required autofocus).form-control#banner_text
+
+            .col-md-12 Update Frontpage Message Board
+                .col-md-12#toolbar
+                div(style="height: 20vmax;").col-md-12.mb-2#editor
+                input(type="hidden" name="board_msg" value=`${settings[0].board_msg}`)#board_msg
+            div(style="margin-top: 20px;")
+                button(type="submit").btn.btn-sm.btn-primary.btn-block#submit Submit Settings
+                a(href="/home" role="button").btn.btn-sm.btn-danger.btn-block.mx-2 Cancel
+
+    script(src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js")
+    script(src="//cdn.quilljs.com/1.3.6/quill.js")
+    script(src="//cdn.quilljs.com/1.3.6/quill.min.js")
+    script(src="/javascripts/gagscripts.js")
+    script(type="text/javascript").
+        const toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],
+            [{'header':[1, 2, 3, 4, 5, 6, false]}],
+            [{'list': 'ordered'},{'list':'bullet'}],
+            [{'script':'sub'},{'script':'super'}],
+            [{'indent':'-1'},{'indent':'+1'}],
+            [{'color':[]},{'background':[]}],
+            [{'font':[]}],
+            [{'align':[]}],
+        ]
+
+        var quill = new Quill('#editor', {
+            modules: { toolbar: toolbarOptions},
+            theme: 'snow'
+        });
+
+        let msgBoard = document.getElementById("board_msg").value
+        console.log("Message Board",msgBoard)
+        console.log(JSON.parse(msgBoard))
+      
+        quill.setContents(JSON.parse(msgBoard)) //need to parse the data before setting Quill contents
+
+        $('#submit').click(function(){
+            let board_msg = document.getElementById("board_msg")
+            board_msg.value = JSON.stringify(quill.getContents());
+            console.log(board_msg.value)
+
+        })
+
+        $(".date").datepicker({
+            multidate: true,
+            format: "yyyy-mm-dd",
+        });

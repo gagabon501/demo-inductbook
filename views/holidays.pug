@@ -1,0 +1,75 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel)
+
+block layout-content
+  .container-fluid
+    main.col-md-12.ms-sm-auto.col-lg-12
+      div(data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true").modal.fade#staticBackdrop
+          .modal-dialog.modal-lg
+            .modal-content
+              .modal-header
+                h5.modal-title#staticBackdropLabel Add new holiday
+                button(type="button" data-bs-dismiss="modal" aria-label="Close").btn-close
+              .modal-body.form-fill.p-3.card
+                form(action="/holiday" method="post")
+                  .row.mt-2
+                    .col-md-6
+                      label(for="holiday_date").control-label Date
+                      input(type="date" name="holiday_date" placeholder="DD-MM-YYYY").form-control#holiday_date
+                    .col-md-6
+                      label(for="holiday_short_name").control-label Short name
+                      input(type="text" name="holiday_short_name").form-control#holiday_short_name
+                  .row.mt-2
+                    .col-md-6
+                      label(for="holiday_desc").control-label Description
+                      input(type="text" name="holiday_desc").form-control#holiday_desc
+
+                    .col-md-6
+                      label(for="train_type").control-label Applicable to</label>
+                      select(select name="train_type").form-select#train_type
+                          option(value=1) Induction only
+                          option(value=2) Training only
+                          option(value=3) Both Induction and Training
+
+                  .card-button-group.mt-5
+                    button(type="submit").btn.btn-primary.mx-2.btn-sm#add_button
+                      i.bi.bi-pencil-square &nbspAdd holiday
+                    a(href="#" role="button" data-bs-dismiss="modal").btn.btn-danger.btn-sm
+                      bi.bi-trash-fill &nbspCancel
+
+      .d-flex.justify-content-between.mt-2
+        h2 Manage Holidays
+        button(type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop").btn.btn-primary.btn-sm
+          i.bi.bi-file-earmark-plus-fill &nbspAdd Holiday
+
+      .d-flex.mt-2.mx-2
+      .book-container
+        each booking, i in files 
+          - let btnLabel = booking.train_pax - booking.train_tot_session1 <= 0 ? "Fully Booked" : "Book Now"
+          - let isFull = booking.train_pax - booking.train_tot_session1 <= 0 ? true : false
+          - let isDummy1 = booking.train_title === 'dummy' ? true : false
+          - let classHide1 = isDummy1 ? 'hide-item' : ''
+          - let sessId = `sess1${i}`
+          - let sessId2 = `sess2${i}`
+          - let btnId = `btn${i}`
+          - let iConId = `icon-${i}`
+          .booking.card.shadow.rounded 
+            .card-body 
+              h6.card-title-1.text-center.p-2#toptit #{moment(booking.date_holiday).format('DD-MMM-YYYY')}
+              h6.card-title.text-center #{booking.short_name}
+              p.card-text.text-center.text-black #{booking.holiday_name}
+              if (booking.train_type ==  1) 
+                p.card-text.text-center.text-black Induction Only
+              else if (booking.train_type ==  2) 
+                p.card-text.text-center.text-black Training Only
+              else 
+                p.card-text.text-center.text-black Both Induction and Training
+                      
+              .card-button-group.mb-2
+                a(href=`/holiday/${booking._id}`).btn.btn-primary.mx-2.btn-sm
+                    i.bi.bi-pencil-square &nbspEdit
+                a(href=`/holiday/delete/${booking._id}` role="button").btn.btn-danger.btn-sm
+                    bi.bi-trash-fill &nbspDelete

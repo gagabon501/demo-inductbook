@@ -545,8 +545,10 @@ exports.sked_create_post = [
               name: newsked.firstname + " " + newsked.lastname,
               phone: newsked.phone,
               company: newsked.company,
+              // where:
+              //   "Fletcher new Site Office, Ground Floor, 210 Federal St, Auckland",
               where:
-                "Fletcher new Site Office, Ground Floor, 210 Federal St, Auckland",
+                "WorkSite Induction Office, 1234 Site Office Address, Auckland",
               sitesafe:
                 newsked.sitesafe +
                 " / SS Expiry " +
