@@ -436,6 +436,20 @@ tr td:first-child:before {
     text-align: center;
   }
 
+  .login_container {
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 400px;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: fit-content;
+  }
+
   .login_box {
     max-width: 400px;
     height: fit-content;
