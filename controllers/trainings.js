@@ -708,7 +708,7 @@ exports.train_create_post = [
                 "                 Company: " +
                 sked.company +
                 "\r\n" +
-                "             Where to go: FCC Office, 55 Nelson Street" +
+                "             Where to go: NodeSafe Site Office, Te Atatu South" +
                 "\r\n" +
                 "           Site Safe No.: " +
                 sked.sitesafe +

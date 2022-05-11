@@ -1,5 +1,4 @@
 <style>
-
   @media screen and (min-width: 768px) {
     #logout {
       display: none;
@@ -14,24 +13,21 @@
     #utilities {
       display: none;
     }
-    
+
     #util_heading {
       display: none;
     }
 
-
     #logout {
       display: block;
     }
-
-
   }
 </style>
 
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/home"
-    >FCC B+I Booking System v<%= version %> </a
-  >
+    >NodeSafe Web Booking System v<%= version %>
+  </a>
   <button
     class="navbar-toggler position-absolute d-md-none collapsed"
     type="button"
@@ -46,7 +42,7 @@
   <ul class="navbar-nav px-3">
     <li>
       <h4 class="nav-link" id="username">Welcome <%= username %></h4>
-      <input id="uname" type="hidden" name="email" value=<%= email %> >
+      <input id="uname" type="hidden" name="email" value="<%" ="email" % /> >
     </li>
   </ul>
 
@@ -106,86 +102,92 @@
         </a>
       </li>
       <% if (userlevel >2) { %>
-        <li class="nav-item shadow rounded">
-          
-          <div class="btn-group dropend">
-            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Utilities
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="nav-link" href="/training">
-                  <span data-feather="database"></span>
-                  Manage Trainings
-                </a>
-              </li>
-              <li>
-                <a class="nav-link" href="/gensked">
-                  <span data-feather="database"></span>
-                  Manage Other Bookings
-                </a>
-              </li>
-              <li>
-                <a class="nav-link" href="/holiday">
-                  <span data-feather="database"></span>
-                  Manage Holidays
-                </a>
-              </li>
-              <li>
-                <a class="nav-link" href="/user_list">
-                  <span data-feather="database"></span>
-                  Manage Users
-                </a>
-              </li>
-              <li>
-                <a class="nav-link" href="/settings">
-                  <span data-feather="settings"></span>
-                  Settings
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
+      <li class="nav-item shadow rounded">
+        <div class="btn-group dropend">
+          <button
+            type="button"
+            class="btn dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Utilities
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="nav-link" href="/training">
+                <span data-feather="database"></span>
+                Manage Trainings
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/gensked">
+                <span data-feather="database"></span>
+                Manage Other Bookings
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/holiday">
+                <span data-feather="database"></span>
+                Manage Holidays
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/user_list">
+                <span data-feather="database"></span>
+                Manage Users
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/settings">
+                <span data-feather="settings"></span>
+                Settings
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
 
-      <% } %> 
-       <% if (userlevel > 4) { %>
-        <li class="nav-item shadow rounded ">
-          <div class="btn-group dropend">
-            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Admin
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="nav-link" href="/getlogs/show">
-                  <span data-feather="settings"></span>
-                  View Access Logs
-                </a>
-              </li>
+      <% } %> <% if (userlevel > 4) { %>
+      <li class="nav-item shadow rounded">
+        <div class="btn-group dropend">
+          <button
+            type="button"
+            class="btn dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Admin
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="nav-link" href="/getlogs/show">
+                <span data-feather="settings"></span>
+                View Access Logs
+              </a>
+            </li>
 
-              <li>
-                <a class="nav-link" href="/getlogs/server">
-                  <span data-feather="settings"></span>
-                  Download Logs
-                </a>
-              </li>
-              <li>
-                <a class="nav-link" href="/dobill">
-                  <span data-feather="settings"></span>
-                  Generate Billing
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
-      <% } %>      
-
+            <li>
+              <a class="nav-link" href="/getlogs/server">
+                <span data-feather="settings"></span>
+                Download Logs
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" href="/dobill">
+                <span data-feather="settings"></span>
+                Generate Billing
+              </a>
+            </li>
+          </ul>
+        </div>
+      </li>
+      <% } %>
     </ul>
-
   </div>
 </nav>
 
 <script>
   function gagclick() {
-    console.log("gag clicked")
+    console.log("gag clicked");
   }
 </script>

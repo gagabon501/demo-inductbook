@@ -57,11 +57,11 @@ exports.dobill_get = async function (req, res) {
         //   process.env.DEVELOPMENT == "1"
         //     ? "mongodb://127.0.0.1:27017"
         //     : process.env.MONGODB_URI;
-        const recvr =
-          process.env.DEVELOPMENT == "1"
-            ? ["gagabon@safenode.co.nz"]
-            : ["ariannak@fcc.co.nz", "ap.fccnz@fbu.com"];
-        // const recvr = ["gagabon@safenode.co.nz"]; //remove after test
+        // const recvr =
+        //   process.env.DEVELOPMENT == "1"
+        //     ? ["gagabon@safenode.co.nz"]
+        //     : ["ariannak@fcc.co.nz", "ap.fccnz@fbu.com"];
+        const recvr = ["gagabon@safenode.co.nz"]; //remove after test
         const subject = `Booking System Maintenance Invoice for ${period} (${pdfFileName})`;
         const emaildata = {
           inv_no: pdfFileName,

@@ -10,7 +10,7 @@ block layout-content
         main.col-md-12.ms-sm-auto.col-lg-12
             .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
                 h3 Update Induction Booking
-                h5 FCC EHS Induction Booking System
+                h5 NodeSafe Web Booking System
                 h5 Date: #{moment(booking_data.date_attend).format("DD-MM-YYYY")} / Session: #{booking_data.session_title}
                 
             form(method='POST' action='/book_update' enctype="multipart/form-data")
@@ -25,7 +25,7 @@ block layout-content
 
                       .row
                           .col-md-6.mb-3
-                              label(for="fcc").control-label  FCC Supervisor Name
+                              label(for="fcc").control-label  Company Supervisor Name
                               input(type="text" name="fcc_supervisor" value=`${booking_data.fcc_supervisor}` required minlength="3" pattern="^(?!\s*$).+").form-control#fcc
                           .col-md-6.mb-3
                               label(for="workpack").control-label  Workpack Number

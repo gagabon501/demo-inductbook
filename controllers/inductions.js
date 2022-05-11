@@ -521,7 +521,7 @@ exports.sked_create_post = [
                 "                 Company: " +
                 newsked.company +
                 "\r\n" +
-                "             Where to go: FCC Office, 55 Nelson Street" +
+                "             Where to go: NodeSafe Site Office, Te Atatu South" +
                 "\r\n" +
                 "           Site Safe No.: " +
                 newsked.sitesafe +

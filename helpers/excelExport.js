@@ -301,7 +301,7 @@ module.exports = {
         style: { alignment: { vertical: "middle", horizontal: "center" } },
       },
       {
-        header: "FCC Authorised By",
+        header: "Authorised By",
         key: "fcc_supervisor",
         width: 20,
         style: { alignment: { vertical: "middle", horizontal: "center" } },

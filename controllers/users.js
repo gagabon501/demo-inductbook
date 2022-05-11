@@ -588,7 +588,7 @@ exports.forgot_post = (req, res, next) => {
       },
       function (token, user, done) {
         var recvr = user.email,
-          subject = "FCC B+I Induction Booking Password Reset",
+          subject = "NodeSafe Web Booking System Password Reset",
           emailbody =
             "You are receiving this because you (or someone else) has requested the reset of the password for your account.\n\n" +
             "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
@@ -670,7 +670,7 @@ exports.reset_token_post = (req, res) => {
               user.resetPasswordExpires = undefined;
 
               var recvr = user.email,
-                subject = "FCC B+I Induction Booking - Password changed",
+                subject = "NodeSafe Web Booking System - Password changed",
                 emailbody =
                   "Hello,\n\n" +
                   "This is a confirmation that the password for your account " +

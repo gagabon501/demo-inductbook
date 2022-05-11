@@ -167,7 +167,7 @@ const generateFile = async (req, res) => {
           style: { alignment: { vertical: "middle", horizontal: "center" } },
         },
         {
-          header: "FCC Authorised By",
+          header: "Authorised By",
           key: "fcc_supervisor",
           width: 20,
           style: { alignment: { vertical: "middle", horizontal: "center" } },
@@ -317,7 +317,7 @@ const exportInductions = async (dateval, userLevel, userId, url) => {
     "Booked By",
     "Emergency Contact Person",
     "Emergency Contact Number",
-    "FCC Authorised By",
+    "Authorised By",
     "Workpack Number",
     "Company Supervisor",
     "1st Tier Contractor",

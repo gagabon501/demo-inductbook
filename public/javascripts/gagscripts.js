@@ -772,7 +772,7 @@ function generateExcelFile(method, url) {
             },
           },
           {
-            header: "FCC Authorised By",
+            header: "Authorised By",
             key: "fcc_supervisor",
             width: 20,
             style: {
