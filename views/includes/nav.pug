@@ -50,9 +50,9 @@ mixin navigation(level, activePage)
                         a.nav-link.dropdown-toggle#navbarDropdownMenuLink(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Profile
                         ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
                             li
-                                a.dropdown-item(href='#') Change Password
+                                a.dropdown-item(href='/passwd') Change Password
                             li
-                                a.dropdown-item(href='#') Update Profile
+                                a.dropdown-item(href=`/user_edit/${userId}`) Update Profile
                             li
                                 a.dropdown-item(href='/logout') Logout
 

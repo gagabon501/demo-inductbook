@@ -37,6 +37,7 @@ exports.home_page = async function (req, res, next) {
     username: req.session.username,
     email: req.session.email,
     version: package.version,
+    userId: req.session.userId,
     settings,
   });
   //getBookingSked(req, res); //uses async/await

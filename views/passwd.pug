@@ -1,0 +1,20 @@
+extends includes/layout 
+
+block nav-bar
+    include includes/nav
+    +navigation(userlevel, activePage, userId)
+
+block layout-content 
+    .container-fluid
+        main.col-md-12.ms-sm-auto.col-lg-10.px-md-4
+            .d-flex.justify-content-between.flex-wrap.flex-md-nowrap.align-items-center.pt-3.pb-2.mb-3.border-bottom
+                h1 Change Password
+                .container-fluid.w-50.mt-5
+                    form(action="/passwd" method="post")
+                        p.text-center.text-danger.font-weight-bold #{errmsg}
+                        label(for="password").sr-only.form-label New password 
+                        input(type="password" id="password" name="password" placeholder="New password" required autofocus).form-control.mt-2
+                        label(for="passwordConf").sr-only.form-label Re-type Password
+                        input(type="password" id="passwordConf" name="passwordConf" placeholder="Re-type password" required).form-control.mt-2
+                        button(type="submit").btn.btn-sm.btn-primary.btn-block.mt-2 > Submit
+                        a(href="/home" role="button").btn.btn-sm.btn-danger.btn-block.mt-2 Cancel
