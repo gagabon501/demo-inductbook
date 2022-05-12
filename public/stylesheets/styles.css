@@ -309,6 +309,12 @@ h1#login {
   justify-content: start;
 }
 
+.passwd {
+  padding: 10px;
+  border: rgba(0, 0, 0, 0.08) 1px solid;
+  border-radius: 10px;
+}
+
 #profile {
   display: none;
 }

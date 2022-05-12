@@ -435,7 +435,8 @@ exports.user_edit_post = [
             return next(err);
           }
           // Successful - redirect to new author record.
-          res.redirect("/user_list");
+          // res.redirect("/user_list");
+          res.redirect("/home"); //Still to be fixed. This has to redirect to the calling route (i.e. when the calling route is /user_list then it should go back there): 13-May-22
         }
       );
     }

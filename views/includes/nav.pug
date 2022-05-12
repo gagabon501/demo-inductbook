@@ -45,7 +45,7 @@ mixin navigation(level, activePage)
                                         a.dropdown-item(href='#') Download Logs
                                     li
                                         a.dropdown-item(href='#') Generate Billing
-
+                    //- For the mobile screen
                     li.nav-item.dropdown#profile
                         a.nav-link.dropdown-toggle#navbarDropdownMenuLink(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false') Profile
                         ul.dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
@@ -65,9 +65,9 @@ mixin navigation(level, activePage)
                                 bi.bi-file-person-fill &nbspProfile
                             ul(style="margin-top:40px").dropdown-menu
                                 li
-                                    a.dropdown-item(href='#') Change Password
+                                    a.dropdown-item(href='/passwd') Change Password
                                 li
-                                    a.dropdown-item(href='#') Update Profile
+                                    a.dropdown-item(href=`/user_edit/${userId}`) Update Profile
                             
 
                         a(href="/logout" type="button")#logout

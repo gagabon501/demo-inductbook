@@ -6,10 +6,10 @@ block nav-bar
 
 block layout-content
     .container-fluid.col-sm-6
-        img(src="/images/user_edit_background.jpg" style="margin-top:20px;" alt="User edit background").img-fluid
+        img(src="/images/user_edit_background.jpg" style="margin-top:10px;" alt="User edit background").img-fluid
         form(method='POST' action=`/user_edit/${user_data._id}`)
-            h2 Manage User
-            .card.mt-3.p-2.form-fill
+            h3 Update Profile
+            .card.mt-2.p-3.form-fill
                 .form-group
                     label(for='email').form-label Email:
                     input(type='email' name='email' value=`${user_data.email}` disabled).form-control
@@ -17,24 +17,25 @@ block layout-content
                     label(for='name').form-label Full name:
                     input(type='text' name='name' required value=`${user_data.name}`).form-control
                 .row.mt-2
-                    .form-group.col-sm-8
+                    .form-group.col-sm-12
                         label(for='company').form-label Company name:
                         input(type='text' name='company' value=`${user_data.company}`).form-control
-                    .col-sm-4
-                        label(for="company_type").form-label Company type
-                        select(name="company_type" value=`${user_data.company_type}`).form-select#company_type
-                            option(selected) Select company type    
-                            option(value="Internal") Company
-                            option(value="External") Sub-contractor
-
-                .mt-2
-                    label(for='level').form-label User Level
-                    .form-check.form-check-inline.mx-2
-                        input(type="radio"  name="level" value=4).form-check-input#customRadioInline1
-                        label(for="customRadioInline1").form-check-label Admin
-                    .form-check.form-check-inline
-                        input(type="radio" name="level" value=1).form-check-input#customRadioInline2
-                        label(for="customRadioInline2").form-check-label User
+                if user_data.level > 1
+                    .row.mt-2
+                        .col-sm-8
+                            label(for="company_type").form-label Company type
+                            select(name="company_type" value=`${user_data.company_type}`).form-select#company_type
+                                option(selected) Select company type    
+                                option(value="Internal") Company
+                                option(value="External") Sub-contractor
+                        div(style="margin-top: 40px").col-sm-4
+                            label(for='level').form-label User Level
+                            .form-check.form-check-inline.mx-2
+                                input(type="radio"  name="level" value=4).form-check-input#customRadioInline1
+                                label(for="customRadioInline1").form-check-label Admin
+                            .form-check.form-check-inline
+                                input(type="radio" name="level" value=1).form-check-input#customRadioInline2
+                                label(for="customRadioInline2").form-check-label User
             
             .row.mt-2
                 .col-md-12
