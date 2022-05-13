@@ -1,6 +1,26 @@
 extends includes/layout 
 
-block layout-content 
+block nav-bar
 
-    .container 
-        h1 Forgot password here
+block layout-content 
+    .container
+        div(style="margin: 50px auto").w-50
+            form(action="/forgot" method="post")
+                h3.text-center.mt-5
+                    i.fa.fa-lock.fa-4x
+                    h1.mb-3.font-weight-normal.text-center Forgot Password?
+                    .text-center You can reset your password here
+                    if (error && error.length > 0) 
+                        alert.alert-danger
+                            p #{error}
+
+                    if(success && success.length > 0) 
+                        .alert.alert-success #{success}
+            
+                    .input-group.mb-3
+                        span.input-group-text#basic-addon1 @
+                        input(type="email"  name="email" placeholder="email address" aria-label="Email" aria-describedby="basic-addon1").form-control#inputEmail
+                    button(type="submit").btn.btn-lg.btn-primary.btn-block Reset
+                    a(href="/login" role="button").btn.btn-lg.btn-secondary.btn-block.mx-2 Back to Login
+                    p.mt-5.mb-3.text-muted.text-center &copy; gagabon501 2018
+        

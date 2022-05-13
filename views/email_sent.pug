@@ -1,0 +1,15 @@
+extends includes/layout 
+
+block nav-bar
+
+block layout-content
+    .container
+        .container-fluid.col-sm-8
+            .card.mt-5
+                h5(style="font-size: 8rem;").card-header.text-center.text-primary
+                    i.fa.fa-3x.fa-envelope
+                .card-body.d-grid.gap-2.col-6.mx-auto
+                    h3.card-title.text-center Password Reset Email Sent
+                    p.card-text.text-center An email has been sent to #{msg}. Follow the directions in the email to reset your password.
+                    a(href="/" role="button").btn.btn-primary Done
+                    p.mt-5.mb-3.text-muted.text-center &copy; gagabon501 2018

@@ -1,0 +1,22 @@
+extends includes/layout 
+
+block nav-bar
+
+block layout-content   
+    .container
+        div(style="margin: 50px auto").w-50
+            h5(style="font-size: 2rem;").text-center.text-primary
+                i.fa.fa-lock.fa-4x
+                h1.mb-3.font-weight-normal.text-dark.text-center Password Reset
+                div(style="background-color:#4841b4;").container-fluid.bg.col-md-4
+                form(action=`/reset/${token}` method="post").form-signin
+                    if (error && error.length > 0)
+                        .alert.alert-danger
+                            p #{error}
+                    if (success && success.length > 0)
+                        .alert.alert-success
+                            p #{success}
+                    input(type="password" name="password" value="" placeholder="New Password" autofocus="autofocus").form-control.mt-2
+                    input(type="password" name="confirm" value="" placeholder="Confirm password").form-control.mt-2
+                    button(type="submit").btn.btn-success.btn-lg.btn-block.mt-2 Update Password
+        p.mt-5.mb-3.text-center.text-white &copy; gagabon501 2018

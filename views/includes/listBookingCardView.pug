@@ -56,7 +56,7 @@ mixin listBookingCardView(listObj,subHeading,level)
                                         p.card-text Constructsafe: #{record.constructsafe}
                                         p.card-text Date Booked: #{moment(record.bookdate).format("DD-MM-YYYY")}
                                 div(style="margin-top: 5px; line-height: .2; margin-right: 10px").card-divider
-                                    p(style="line-height: .95").card-text Booked and Vaccine Confirmed by: #{record.bookedby}
+                                    p(style="line-height: .95").card-text Booked by: #{record.bookedby}
                                     p.card-text Emergency Contact Person: #{record.emergency_person}
                                     p.card-text Emergency Phone Number: #{record.emergency_phone}
                                     p.card-text FCC Supervisor: #{record.fcc_supervisor}
